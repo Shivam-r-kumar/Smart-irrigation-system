@@ -1,5 +1,9 @@
 let googleMapsPromise;
 
+// Google Maps browser keys are delivered to the client by design. The
+// environment variable can still override this restricted project key.
+export const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "AIzaSyDsXfu8sEX9XyIA4kgUBx0RZoOp9idJY94";
+
 export function loadGoogleMaps(apiKey) {
   if (window.google?.maps) return Promise.resolve(window.google.maps);
   if (googleMapsPromise) return googleMapsPromise;

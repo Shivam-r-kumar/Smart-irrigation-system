@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { subscribeToSensorData } from "../firebase/sensorService";
 import { setAutoMode, setPumpState } from "../firebase/irrigationService";
+import { saveSharedFarmMapping, subscribeToFarmMapping } from "../firebase/mappingService";
 import { firebaseEnabled } from "../firebase/config";
 import farmMapData from "../data/farmMap.json";
 import { loadFarmBoundary, loadFarmDevices, saveFarmBoundary, saveFarmDevices } from "../utils/farmMapping";
@@ -41,11 +42,25 @@ export function FarmProvider({ children }) {
     return () => window.removeEventListener("storage", syncMappingAcrossTabs);
   }, []);
 
+  useEffect(() => subscribeToFarmMapping(
+    (mapping) => {
+      setFarmBoundary(mapping.boundary);
+      setFarmDevices(mapping.devices);
+      saveFarmBoundary(window.localStorage, mapping.boundary);
+      saveFarmDevices(window.localStorage, mapping.devices);
+    },
+    () => {
+      void saveSharedFarmMapping(farmBoundary, farmDevices).catch(() => {});
+    },
+    () => {},
+  ), []);
+
   const updateFarmMapping = useCallback((nextBoundary, nextDevices) => {
     setFarmBoundary(nextBoundary);
     setFarmDevices(nextDevices);
     saveFarmBoundary(window.localStorage, nextBoundary);
     saveFarmDevices(window.localStorage, nextDevices);
+    void saveSharedFarmMapping(nextBoundary, nextDevices).catch(() => {});
   }, []);
 
   const controlPump = async (nextState) => {

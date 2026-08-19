@@ -3,10 +3,10 @@ import { createPortal } from "react-dom";
 import Icon from "./Icon";
 import { useLanguage } from "../context/LanguageContext";
 import { calculatePolygonAreaAcres, isPointInsideBoundary } from "../utils/farmMapping";
-import { loadGoogleMaps } from "../utils/googleMaps";
+import { GOOGLE_MAPS_API_KEY, loadGoogleMaps } from "../utils/googleMaps";
 import { createDeviceMarkerClass } from "../utils/googleMapOverlays";
 
-const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+const apiKey = GOOGLE_MAPS_API_KEY;
 
 const DEVICE_PRESETS = {
   sensor: {

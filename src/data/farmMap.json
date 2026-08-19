@@ -2,106 +2,98 @@
   "farm": {
     "name": "Greenfields Farm",
     "location": "Ludhiana, Punjab",
-    "coordinates": { "lat": 30.90065, "lng": 75.85705 }
+    "coordinates": { "lat": 30.97802, "lng": 75.81508 }
   },
   "boundary": [
-    { "lat": 30.90238, "lng": 75.85542 },
-    { "lat": 30.90242, "lng": 75.85868 },
-    { "lat": 30.90062, "lng": 75.85872 },
-    { "lat": 30.89876, "lng": 75.85858 },
-    { "lat": 30.89870, "lng": 75.85548 },
-    { "lat": 30.90036, "lng": 75.85535 }
+    { "lat": 30.979701871558667, "lng": 75.81683496813822 },
+    { "lat": 30.976417998945042, "lng": 75.81684569697428 },
+    { "lat": 30.976463992338854, "lng": 75.81541876177836 },
+    { "lat": 30.976436396305218, "lng": 75.81478576045085 },
+    { "lat": 30.975920918004775, "lng": 75.81476454419342 },
+    { "lat": 30.975879523715832, "lng": 75.81347171944824 },
+    { "lat": 30.975911719275466, "lng": 75.8133912531778 },
+    { "lat": 30.975953113550442, "lng": 75.81335906666962 },
+    { "lat": 30.975953113550442, "lng": 75.81335906666962 },
+    { "lat": 30.97604050140536, "lng": 75.81333224457947 },
+    { "lat": 30.976074996589233, "lng": 75.81333492678849 },
+    { "lat": 30.97609454385455, "lng": 75.81333090347496 },
+    { "lat": 30.97611064159945, "lng": 75.81333358568398 },
+    { "lat": 30.979692768228414, "lng": 75.81329945489861 },
+    { "lat": 30.979729561682728, "lng": 75.81343892976739 },
+    { "lat": 30.97995032211069, "lng": 75.8134603874395 },
+    { "lat": 30.97995032211069, "lng": 75.81429723665215 },
+    { "lat": 30.97995032211069, "lng": 75.81520918771722 },
+    { "lat": 30.97990433039697, "lng": 75.81523064538933 },
+    { "lat": 30.979821545256446, "lng": 75.81527356073357 },
+    { "lat": 30.979766355122845, "lng": 75.81532720491387 },
+    { "lat": 30.979747958404555, "lng": 75.81541303560235 },
+    { "lat": 30.979729561682728, "lng": 75.81548813745476 },
+    { "lat": 30.97971116495734, "lng": 75.81568125650384 },
+    { "lat": 30.97971116495734, "lng": 75.81585291788079 },
+    { "lat": 30.97971116495734, "lng": 75.8161425964544 },
+    { "lat": 30.97970196659331, "lng": 75.81638935968377 },
+    { "lat": 30.97971116495734, "lng": 75.81683997079827 }
   ],
   "devices": [
     {
-      "id": "FIELD-001", "name": "North Soil Node", "typeKey": "farmMap.deviceTypes.soilNode", "marker": "S1", "color": "#36b968", "status": "online", "coordinates": { "lat": 30.90162, "lng": 75.85630 }, "battery": 92, "signal": 96, "lastSeen": "10 sec ago",
+      "id": "GATEWAY-001", "name": "Main Device", "typeKey": "farmMap.deviceTypes.gateway", "marker": "G1", "color": "#8a62dd", "status": "online", "coordinates": { "lat": 30.978588, "lng": 75.815412 }, "battery": 95, "signal": 92, "lastSeen": "Just now",
+      "metrics": [
+        { "id": "signalStrength", "labelKey": "farmMap.signalStrength", "icon": "Wifi", "tone": "green", "value": 92, "suffix": "%" },
+        { "id": "connectedDevices", "labelKey": "farmMap.connectedDevices", "icon": "RadioTower", "tone": "blue", "value": 0, "suffix": "" },
+        { "id": "uptime", "labelKey": "farmMap.uptime", "icon": "Clock3", "tone": "purple", "value": 99.8, "suffix": "%" },
+        { "id": "dataPackets", "labelKey": "farmMap.dataPackets", "icon": "Network", "tone": "cyan", "value": 1284, "suffix": "" }
+      ],
+      "noteKey": "farmMap.deviceNotes.customGateway"
+    },
+    {
+      "id": "SENSOR-001", "name": "Regin", "typeKey": "farmMap.deviceTypes.sensorNode", "marker": "S1", "color": "#36b968", "status": "online", "coordinates": { "lat": 30.976803, "lng": 75.816421 }, "battery": 95, "signal": 92, "lastSeen": "Just now",
       "metrics": [
         { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 42, "suffix": "%" },
         { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 64, "suffix": "%" },
         { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 31, "suffix": "°C" },
         { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 28.9, "suffix": "°C" }
       ],
-      "noteKey": "farmMap.deviceNotes.soilNode"
+      "noteKey": "farmMap.deviceNotes.customSensor"
     },
     {
-      "id": "FIELD-002", "name": "East Soil Node", "typeKey": "farmMap.deviceTypes.soilNode", "marker": "S2", "color": "#3d92e8", "status": "online", "coordinates": { "lat": 30.90118, "lng": 75.85803 }, "battery": 78, "signal": 88, "lastSeen": "24 sec ago",
+      "id": "SENSOR-002", "name": "afd", "typeKey": "farmMap.deviceTypes.sensorNode", "marker": "S2", "color": "#36b968", "status": "online", "coordinates": { "lat": 30.976822, "lng": 75.815777 }, "battery": 95, "signal": 92, "lastSeen": "Just now",
       "metrics": [
-        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 37, "suffix": "%" },
-        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 59, "suffix": "%" },
-        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 32.4, "suffix": "°C" },
-        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 29.7, "suffix": "°C" }
-      ],
-      "noteKey": "farmMap.deviceNotes.eastSoil"
-    },
-    {
-      "id": "FIELD-003", "name": "South Soil Node", "typeKey": "farmMap.deviceTypes.soilNode", "marker": "S3", "color": "#2fbf71", "status": "online", "coordinates": { "lat": 30.89942, "lng": 75.85608 }, "battery": 86, "signal": 90, "lastSeen": "18 sec ago",
-      "metrics": [
-        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 45, "suffix": "%" },
-        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 67, "suffix": "%" },
-        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 30.2, "suffix": "°C" },
-        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 27.8, "suffix": "°C" }
-      ],
-      "noteKey": "farmMap.deviceNotes.soilNode"
-    },
-    {
-      "id": "FIELD-004", "name": "Central Soil Node", "typeKey": "farmMap.deviceTypes.soilNode", "marker": "S4", "color": "#29a984", "status": "online", "coordinates": { "lat": 30.90068, "lng": 75.85708 }, "battery": 73, "signal": 85, "lastSeen": "31 sec ago",
-      "metrics": [
-        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 40, "suffix": "%" },
-        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 62, "suffix": "%" },
-        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 31.8, "suffix": "°C" },
-        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 29.1, "suffix": "°C" }
-      ],
-      "noteKey": "farmMap.deviceNotes.soilNode"
-    },
-    {
-      "id": "FIELD-005", "name": "South-East Soil Node", "typeKey": "farmMap.deviceTypes.soilNode", "marker": "S5", "color": "#487fe2", "status": "warning", "coordinates": { "lat": 30.89945, "lng": 75.85804 }, "battery": 29, "signal": 64, "lastSeen": "3 min ago",
-      "metrics": [
-        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 32, "suffix": "%" },
-        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 55, "suffix": "%" },
-        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 33.1, "suffix": "°C" },
-        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 30.4, "suffix": "°C" }
-      ],
-      "noteKey": "farmMap.deviceNotes.lowMoistureNode"
-    },
-    {
-      "id": "FIELD-006", "name": "North-Central Soil Node", "typeKey": "farmMap.deviceTypes.soilNode", "marker": "S6", "color": "#51b85a", "status": "online", "coordinates": { "lat": 30.90202, "lng": 75.85691 }, "battery": 81, "signal": 92, "lastSeen": "15 sec ago",
-      "metrics": [
-        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 48, "suffix": "%" },
-        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 69, "suffix": "%" },
-        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 29.9, "suffix": "°C" },
-        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 27.3, "suffix": "°C" }
-      ],
-      "noteKey": "farmMap.deviceNotes.soilNode"
-    },
-    {
-      "id": "PUMP-A01", "name": "Main Irrigation Motor", "typeKey": "farmMap.deviceTypes.motor", "marker": "M", "color": "#f08b34", "status": "online", "coordinates": { "lat": 30.90012, "lng": 75.85602 }, "battery": 100, "signal": 91, "lastSeen": "6 sec ago",
-      "metrics": [
-        { "id": "pumpState", "labelKey": "metrics.pumpState", "icon": "Power", "tone": "green", "value": true, "type": "state" },
-        { "id": "flowRate", "labelKey": "farmMap.flowRate", "icon": "Gauge", "tone": "blue", "value": 28, "suffix": " L/min" },
-        { "id": "pressure", "labelKey": "farmMap.pressure", "icon": "Activity", "tone": "purple", "value": 2.4, "suffix": " bar" },
-        { "id": "runtime", "labelKey": "farmMap.runtimeToday", "icon": "Clock3", "tone": "amber", "value": 38, "suffix": " min" }
-      ],
-      "noteKey": "farmMap.deviceNotes.motor"
-    },
-    {
-      "id": "WEATHER-01", "name": "Farm Weather Station", "typeKey": "farmMap.deviceTypes.weather", "marker": "W", "color": "#8a62dd", "status": "warning", "coordinates": { "lat": 30.90198, "lng": 75.85754 }, "battery": 34, "signal": 68, "lastSeen": "2 min ago",
-      "metrics": [
-        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 31, "suffix": "°C" },
+        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 42, "suffix": "%" },
         { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 64, "suffix": "%" },
-        { "id": "rainProbability", "labelKey": "metrics.rainProbability", "icon": "CloudRain", "tone": "blue", "value": 68, "suffix": "%" },
-        { "id": "wind", "labelKey": "farmMap.windSpeed", "icon": "Wind", "tone": "green", "value": 11, "suffix": " km/h" }
+        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 31, "suffix": "°C" },
+        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 28.9, "suffix": "°C" }
       ],
-      "noteKey": "farmMap.deviceNotes.weather"
+      "noteKey": "farmMap.deviceNotes.customSensor"
     },
     {
-      "id": "TANK-001", "name": "Water Tank Sensor", "typeKey": "farmMap.deviceTypes.tank", "marker": "T", "color": "#16aeb2", "status": "online", "coordinates": { "lat": 30.89948, "lng": 75.85735 }, "battery": 96, "signal": 88, "lastSeen": "12 sec ago",
+      "id": "SENSOR-003", "name": "adf", "typeKey": "farmMap.deviceTypes.sensorNode", "marker": "S3", "color": "#36b968", "status": "online", "coordinates": { "lat": 30.977631, "lng": 75.816313 }, "battery": 95, "signal": 92, "lastSeen": "Just now",
       "metrics": [
-        { "id": "waterTankLevel", "labelKey": "metrics.tankLevel", "icon": "Container", "tone": "blue", "value": 78, "suffix": "%" },
-        { "id": "waterVolume", "labelKey": "farmMap.waterVolume", "icon": "Waves", "tone": "cyan", "value": 2340, "suffix": " L" },
-        { "id": "inletFlow", "labelKey": "farmMap.inletFlow", "icon": "ArrowDownToLine", "tone": "green", "value": 0, "suffix": " L/min" },
-        { "id": "outletFlow", "labelKey": "farmMap.outletFlow", "icon": "ArrowUpFromLine", "tone": "amber", "value": 28, "suffix": " L/min" }
+        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 42, "suffix": "%" },
+        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 64, "suffix": "%" },
+        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 31, "suffix": "°C" },
+        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 28.9, "suffix": "°C" }
       ],
-      "noteKey": "farmMap.deviceNotes.tank"
+      "noteKey": "farmMap.deviceNotes.customSensor"
+    },
+    {
+      "id": "SENSOR-004", "name": "afd", "typeKey": "farmMap.deviceTypes.sensorNode", "marker": "S4", "color": "#36b968", "status": "online", "coordinates": { "lat": 30.977594, "lng": 75.815713 }, "battery": 95, "signal": 92, "lastSeen": "Just now",
+      "metrics": [
+        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 42, "suffix": "%" },
+        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 64, "suffix": "%" },
+        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 31, "suffix": "°C" },
+        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 28.9, "suffix": "°C" }
+      ],
+      "noteKey": "farmMap.deviceNotes.customSensor"
+    },
+    {
+      "id": "SENSOR-005", "name": "afd", "typeKey": "farmMap.deviceTypes.sensorNode", "marker": "S5", "color": "#36b968", "status": "online", "coordinates": { "lat": 30.978496, "lng": 75.815991 }, "battery": 95, "signal": 92, "lastSeen": "Just now",
+      "metrics": [
+        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 42, "suffix": "%" },
+        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 64, "suffix": "%" },
+        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 31, "suffix": "°C" },
+        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 28.9, "suffix": "°C" }
+      ],
+      "noteKey": "farmMap.deviceNotes.customSensor"
     }
   ]
 }
