@@ -158,7 +158,7 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
 
 /* Foundations */
 .page-content { max-width: 1540px; padding: 20px 22px 36px; }
-.page-stack { gap: 14px; animation: none; }
+.page-stack { min-width: 0; gap: 14px; animation: none; }
 .page-header { padding: 10px 2px 6px; align-items: center; }
 .page-header h1 {
   margin: 5px 0 4px;
@@ -869,7 +869,16 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
 }
 
 .pump-card.fleet { overflow: hidden; }
-.irrigation-rail { grid-template-columns: minmax(0, 1fr); }
+.irrigation-fleet-layout { grid-template-columns: minmax(0, 1fr); }
+.irrigation-overview-grid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(300px, .68fr);
+  align-items: stretch;
+  gap: 13px;
+}
+.irrigation-overview-grid .condition-grid { min-width: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.irrigation-overview-grid .safety-card { min-width: 0; height: 100%; }
 .motor-fleet-summary {
   min-width: 0;
   margin: 11px 12px 0;
@@ -931,11 +940,24 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
 .weather-warning { display: flex; align-items: center; gap: 6px; }
 
 @media (max-width: 1180px) {
+  .irrigation-overview-grid { grid-template-columns: minmax(0, 1fr); }
+  .irrigation-overview-grid .condition-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
   .motor-control-row { grid-template-columns: 38px minmax(100px, 1fr) auto; }
   .motor-row-actions { grid-column: 2 / -1; }
 }
 
+@media (min-width: 1181px) {
+  .pump-card.fleet .motor-control-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1280px) {
+  .device-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
 @media (max-width: 760px) {
+  .filter-tabs, .device-grid, .device-card { min-width: 0; }
+  .filter-tabs { width: 100%; box-sizing: border-box; }
+  .irrigation-overview-grid .condition-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .motor-control-row { grid-template-columns: 38px minmax(0, 1fr) auto; }
   .motor-live-state { justify-self: end; }
   .motor-row-actions { grid-column: 1 / -1; }

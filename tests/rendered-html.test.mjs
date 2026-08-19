@@ -174,3 +174,20 @@ test("renders confirmations at the viewport root so cards cannot clip them", asy
   assert.match(themeSource, /\.confirmation-backdrop\s*\{[^}]*z-index:\s*170/s);
   assert.match(themeSource, /\.confirmation-modal\s*\{[^}]*margin:\s*auto/s);
 });
+
+test("keeps fleet and sensor layouts responsive with complete copy", async () => {
+  const irrigationSource = await readFile(new URL("../src/pages/IrrigationControl.jsx", import.meta.url), "utf8");
+  const themeSource = await readFile(new URL("../app/agrivision-theme.css", import.meta.url), "utf8");
+  const english = JSON.parse(await readFile(new URL("../src/locales/en.json", import.meta.url), "utf8"));
+  const hindi = JSON.parse(await readFile(new URL("../src/locales/hi.json", import.meta.url), "utf8"));
+
+  assert.match(irrigationSource, /irrigation-layout irrigation-fleet-layout/);
+  assert.match(irrigationSource, /irrigation-overview-grid/);
+  assert.match(themeSource, /\.pump-card\.fleet \.motor-control-list\s*\{\s*grid-template-columns:\s*repeat\(2,/s);
+  assert.match(themeSource, /@media \(min-width: 1280px\)[^{]*\{[^}]*\.device-grid\s*\{\s*grid-template-columns:\s*repeat\(3,/s);
+  assert.match(themeSource, /\.filter-tabs\s*\{\s*width:\s*100%;\s*box-sizing:\s*border-box;/s);
+  assert.equal(english.farmMap.deviceTypes.sensorNode, "Sensor Node");
+  assert.equal(hindi.farmMap.deviceTypes.sensorNode, "सेंसर नोड");
+  assert.equal(english.weather.thirtyDayTitle, "31-day weather window");
+  assert.equal(hindi.weather.thirtyDayTitle, "31 दिन का मौसम");
+});
