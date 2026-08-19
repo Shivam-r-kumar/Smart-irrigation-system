@@ -12,6 +12,7 @@ import ChartCard from "../components/ChartCard";
 import Icon from "../components/Icon";
 import LoadingSpinner from "../components/LoadingSpinner";
 import MetricHistoryModal from "../components/MetricHistoryModal";
+import ReportModal from "../components/ReportModal";
 
 const tooltipStyle = { borderRadius: 10, border: "1px solid var(--border)", background: "var(--card)", color: "var(--text)" };
 
@@ -19,6 +20,7 @@ export default function Dashboard() {
   const { t } = useLanguage();
   const { data, loading, error, connection } = useSensorData();
   const [selectedMetric, setSelectedMetric] = useState(null);
+  const [reportOpen, setReportOpen] = useState(false);
   if (loading) return <LoadingSpinner label={t("common.loading")} />;
 
   return (
@@ -40,12 +42,12 @@ export default function Dashboard() {
           <div className="dashboard-charts">
             <ChartCard title={t("dashboard.moistureTrend")} action={<span className="live-indicator"><i />{t("common.live")}</span>}>
               <ResponsiveContainer width="100%" height={220}>
-                <LineChart data={dashboard.moistureTrend} margin={{ top: 10, right: 10, left: -22, bottom: 0 }}><CartesianGrid stroke="var(--chart-grid)" vertical={false} /><XAxis dataKey="day" tick={{ fontSize: 11, fill: "var(--muted)" }} axisLine={false} tickLine={false} /><YAxis tick={{ fontSize: 11, fill: "var(--muted)" }} axisLine={false} tickLine={false} domain={[20, 80]} /><Tooltip contentStyle={tooltipStyle} /><Line type="monotone" dataKey="value" stroke="#2d77df" strokeWidth={3} dot={{ r: 4, fill: "#2d77df", strokeWidth: 2, stroke: "var(--card)" }} activeDot={{ r: 6 }} /></LineChart>
+                <LineChart data={dashboard.moistureTrend} margin={{ top: 10, right: 10, left: -22, bottom: 0 }}><CartesianGrid stroke="var(--chart-grid)" vertical={false} /><XAxis dataKey="day" tick={{ fontSize: 11, fill: "var(--muted)" }} axisLine={false} tickLine={false} /><YAxis tick={{ fontSize: 11, fill: "var(--muted)" }} axisLine={false} tickLine={false} domain={[20, 80]} /><Tooltip contentStyle={tooltipStyle} /><Line type="monotone" dataKey="value" stroke="var(--green)" strokeWidth={3} dot={{ r: 4, fill: "var(--green)", strokeWidth: 2, stroke: "var(--card)" }} activeDot={{ r: 6 }} /></LineChart>
               </ResponsiveContainer>
             </ChartCard>
             <ChartCard title={t("dashboard.waterUsage")}>
               <ResponsiveContainer width="100%" height={220}>
-                <BarChart data={dashboard.waterUsage} margin={{ top: 10, right: 8, left: -22, bottom: 0 }}><CartesianGrid stroke="var(--chart-grid)" vertical={false} /><XAxis dataKey="day" tick={{ fontSize: 11, fill: "var(--muted)" }} axisLine={false} tickLine={false} /><YAxis tick={{ fontSize: 11, fill: "var(--muted)" }} axisLine={false} tickLine={false} /><Tooltip contentStyle={tooltipStyle} /><Bar dataKey="litres" fill="#2f79dc" radius={[5, 5, 0, 0]} /></BarChart>
+                <BarChart data={dashboard.waterUsage} margin={{ top: 10, right: 8, left: -22, bottom: 0 }}><CartesianGrid stroke="var(--chart-grid)" vertical={false} /><XAxis dataKey="day" tick={{ fontSize: 11, fill: "var(--muted)" }} axisLine={false} tickLine={false} /><YAxis tick={{ fontSize: 11, fill: "var(--muted)" }} axisLine={false} tickLine={false} /><Tooltip contentStyle={tooltipStyle} /><Bar dataKey="litres" fill="var(--blue)" radius={[5, 5, 0, 0]} /></BarChart>
               </ResponsiveContainer>
             </ChartCard>
           </div>
@@ -63,11 +65,13 @@ export default function Dashboard() {
           </div>
         </section>
         <aside className="dashboard-rail">
+          <button className="dashboard-report-button card" type="button" onClick={() => setReportOpen(true)} aria-label={t("reports.open")}><span className="report-button-icon"><Icon name="ChartNoAxesCombined" size={18} /></span><span><strong>{t("nav.reports")}</strong><small>{t("reports.quickView")}</small></span><Icon name="ChevronRight" size={17} /></button>
           <PumpControl compact />
           <section className="card npk-card"><header className="card-header"><h2>{t("dashboard.npkBalance")}</h2></header><div className="npk-list">{dashboard.npk.map((item) => <div key={item.nameKey}><div><span>{t(item.nameKey)}</span><strong>{item.value} kg/ha</strong></div><span className="progress-track"><i style={{ width: `${Math.min(item.value / item.target * 100, 100)}%`, background: item.color }} /></span></div>)}</div></section>
         </aside>
       </div>
       {selectedMetric && <MetricHistoryModal metric={selectedMetric} currentValue={data[selectedMetric.id]} deviceId={data.deviceId || "FIELD-001"} onClose={() => setSelectedMetric(null)} />}
+      {reportOpen && <ReportModal onClose={() => setReportOpen(false)} />}
     </div>
   );
 }

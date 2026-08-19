@@ -23,7 +23,7 @@
   "npk": [
     { "nameKey": "metrics.nitrogen", "value": 120, "target": 150, "color": "#249755" },
     { "nameKey": "metrics.phosphorus", "value": 60, "target": 100, "color": "#f0a234" },
-    { "nameKey": "metrics.potassium", "value": 40, "target": 80, "color": "#3478d4" }
+    { "nameKey": "metrics.potassium", "value": 40, "target": 80, "color": "#8aa06d" }
   ],
   "activities": [
     { "titleKey": "activity.lowMoisture", "categoryKey": "category.alert", "time": "08:45 AM", "severity": "critical", "icon": "Droplet" },

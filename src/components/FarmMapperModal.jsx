@@ -10,7 +10,7 @@ const apiKey = GOOGLE_MAPS_API_KEY;
 
 const DEVICE_PRESETS = {
   sensor: {
-    color: "#36b968",
+    color: "#32a363",
     typeKey: "farmMap.deviceTypes.sensorNode",
     prefix: "SENSOR",
     markerPrefix: "S",
@@ -23,7 +23,7 @@ const DEVICE_PRESETS = {
     ],
   },
   motor: {
-    color: "#f08b34",
+    color: "#d19045",
     typeKey: "farmMap.deviceTypes.motorControlUnit",
     prefix: "MOTOR",
     markerPrefix: "M",
@@ -36,7 +36,7 @@ const DEVICE_PRESETS = {
     ],
   },
   gateway: {
-    color: "#8a62dd",
+    color: "#789276",
     typeKey: "farmMap.deviceTypes.gateway",
     prefix: "GATEWAY",
     markerPrefix: "G",

@@ -9,12 +9,12 @@ import { useLanguage } from "../context/LanguageContext";
 import Icon from "./Icon";
 
 const toneColors = {
-  blue: "#438ce6",
-  green: "#32b764",
-  amber: "#e6a33b",
-  red: "#ef6464",
-  cyan: "#3bb2c7",
-  purple: "#a66ae0",
+  blue: "#5c8f6e",
+  green: "#32a363",
+  amber: "#c99043",
+  red: "#d46b58",
+  cyan: "#4f9473",
+  purple: "#748a76",
 };
 
 function formatValue(value, metric) {

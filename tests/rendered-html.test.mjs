@@ -4,6 +4,7 @@ import test from "node:test";
 import { buildFallbackHistory, limitHistoryToElapsedTime } from "../src/utils/sensorHistory.js";
 import { getSoilRemedies } from "../src/utils/soilRemedies.js";
 import { calculatePolygonAreaAcres, isPointInsideBoundary, loadFarmDevices, saveFarmDevices } from "../src/utils/farmMapping.js";
+import { buildFallbackWeather } from "../src/utils/weather.js";
 
 test("builds the production AgriSmart shell", async () => {
   const html = await readFile(new URL("../dist/index.html", import.meta.url), "utf8");
@@ -20,6 +21,16 @@ test("configures Vercel fallback routing for application routes", async () => {
   assert.equal(config.framework, "vite");
   assert.equal(config.outputDirectory, "dist");
   assert.deepEqual(config.rewrites, [{ source: "/(.*)", destination: "/index.html" }]);
+});
+
+test("opens reports from the dashboard instead of the sidebar", async () => {
+  const navigation = JSON.parse(await readFile(new URL("../src/data/navigation.json", import.meta.url), "utf8"));
+  const dashboardSource = await readFile(new URL("../src/pages/Dashboard.jsx", import.meta.url), "utf8");
+  const reportModalSource = await readFile(new URL("../src/components/ReportModal.jsx", import.meta.url), "utf8");
+  assert.ok(!navigation.some((item) => item.path === "/reports"));
+  assert.match(dashboardSource, /dashboard-report-button/);
+  assert.match(dashboardSource, /<ReportModal/);
+  assert.match(reportModalSource, /aria-modal="true"/);
 });
 
 test("limits today's sensor history to elapsed hours", () => {
@@ -89,4 +100,20 @@ test("persists custom map devices safely", () => {
   const devices = [{ id: "SENSOR-001", coordinates: { lat: 30.9, lng: 75.85 } }];
   assert.equal(saveFarmDevices(storage, devices), true);
   assert.deepEqual(loadFarmDevices(storage, []), devices);
+});
+
+test("opens a complete farm weather intelligence page", async () => {
+  const appSource = await readFile(new URL("../src/App.jsx", import.meta.url), "utf8");
+  const navbarSource = await readFile(new URL("../src/components/Navbar.jsx", import.meta.url), "utf8");
+  const weatherSource = await readFile(new URL("../src/utils/weather.js", import.meta.url), "utf8");
+  const weather = buildFallbackWeather(new Date("2026-08-19T12:00:00"));
+  const today = weather.days[15].date;
+  assert.match(appSource, /path="\/weather"/);
+  assert.match(navbarSource, /className="weather" to="\/weather"/);
+  assert.match(weatherSource, /past_days: "15"/);
+  assert.match(weatherSource, /forecast_days: "16"/);
+  assert.match(weatherSource, /seasonal-api\.open-meteo\.com/);
+  assert.equal(weather.days.filter((day) => day.date < today).length, 15);
+  assert.equal(weather.days.filter((day) => day.date > today).length, 15);
+  assert.equal(weather.months.length, 6);
 });

@@ -6,6 +6,5 @@
   { "path": "/irrigation", "labelKey": "nav.irrigation", "icon": "Droplets" },
   { "path": "/sensors", "labelKey": "nav.sensors", "icon": "RadioTower" },
   { "path": "/alerts", "labelKey": "nav.alerts", "icon": "Bell" },
-  { "path": "/reports", "labelKey": "nav.reports", "icon": "ChartNoAxesCombined" },
   { "path": "/settings", "labelKey": "nav.settings", "icon": "Settings" }
 ]

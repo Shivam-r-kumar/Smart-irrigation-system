@@ -15,7 +15,7 @@ export default function Navbar({ onMenu }) {
   const { connection } = useFarm();
   const [openMenu, setOpenMenu] = useState(null);
   const actionsRef = useRef(null);
-  const navItem = navigation.find((item) => pathname.startsWith(item.path)) || navigation[0];
+  const navItem = pathname.startsWith("/weather") ? { labelKey: "weather.navTitle" } : navigation.find((item) => pathname.startsWith(item.path)) || navigation[0];
   const allActiveAlerts = alertData.alerts.filter((alert) => alert.status === "active");
   const activeAlerts = allActiveAlerts.slice(0, 3);
 
@@ -42,7 +42,7 @@ export default function Navbar({ onMenu }) {
       </div>
       <div className="topbar-actions" ref={actionsRef}>
         <span className={`connection-chip ${connection}`}><Wifi size={15} />{connection === "live" ? t("common.live") : t("common.demo")}</span>
-        <span className="weather"><CloudSun size={20} />{t("navbar.weather")}</span>
+        <Link className="weather" to="/weather" aria-label={t("weather.openWeather")}><CloudSun size={20} /><span>{t("navbar.weather")}</span></Link>
         <button className="language-switch" onClick={() => { setOpenMenu(null); setLanguage(language === "en" ? "hi" : "en"); }} aria-label={t("navbar.language")}>
           <Languages size={18} /><b>{language === "en" ? "English" : "हिन्दी"}</b><span>{language === "en" ? "हिन्दी" : "English"}</span>
         </button>

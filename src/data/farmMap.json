@@ -36,7 +36,7 @@
   ],
   "devices": [
     {
-      "id": "GATEWAY-001", "name": "Main Device", "typeKey": "farmMap.deviceTypes.gateway", "marker": "G1", "color": "#8a62dd", "status": "online", "coordinates": { "lat": 30.978588, "lng": 75.815412 }, "battery": 95, "signal": 92, "lastSeen": "Just now",
+      "id": "GATEWAY-001", "name": "Main Device", "typeKey": "farmMap.deviceTypes.gateway", "marker": "G1", "color": "#789276", "status": "online", "coordinates": { "lat": 30.978588, "lng": 75.815412 }, "battery": 95, "signal": 92, "lastSeen": "Just now",
       "metrics": [
         { "id": "signalStrength", "labelKey": "farmMap.signalStrength", "icon": "Wifi", "tone": "green", "value": 92, "suffix": "%" },
         { "id": "connectedDevices", "labelKey": "farmMap.connectedDevices", "icon": "RadioTower", "tone": "blue", "value": 0, "suffix": "" },
