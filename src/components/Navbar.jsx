@@ -16,7 +16,8 @@ export default function Navbar({ onMenu }) {
   const [openMenu, setOpenMenu] = useState(null);
   const actionsRef = useRef(null);
   const navItem = navigation.find((item) => pathname.startsWith(item.path)) || navigation[0];
-  const activeAlerts = alertData.alerts.filter((alert) => alert.status === "active").slice(0, 3);
+  const allActiveAlerts = alertData.alerts.filter((alert) => alert.status === "active");
+  const activeAlerts = allActiveAlerts.slice(0, 3);
 
   useEffect(() => setOpenMenu(null), [pathname]);
 
@@ -49,8 +50,8 @@ export default function Navbar({ onMenu }) {
           {theme === "light" ? <Moon size={19} /> : <Sun size={19} />}
         </button>
         <div className="header-menu-wrap">
-          <button className="icon-button header-icon notification-button" onClick={() => setOpenMenu((current) => current === "alerts" ? null : "alerts")} aria-label={t("navbar.notifications")} aria-expanded={openMenu === "alerts"} aria-controls="notification-menu"><Bell size={19} /><i /><b>{activeAlerts.length}</b></button>
-          {openMenu === "alerts" && <section className="header-popover notification-menu" id="notification-menu" aria-label={t("navbar.recentAlerts")}><header><div><span>{t("navbar.notifications")}</span><strong>{activeAlerts.length} {t("common.active")}</strong></div></header><div className="header-alert-list">{activeAlerts.map((alert) => <Link to="/alerts" className={`header-alert-item ${alert.severity}`} key={alert.id}><CircleAlert size={17}/><span><strong>{t(alert.titleKey)}</strong><small>{alert.device} · {alert.time}</small></span></Link>)}</div><Link className="popover-footer-link" to="/alerts">{t("navbar.viewAllAlerts")}</Link></section>}
+          <button className="icon-button header-icon notification-button" onClick={() => setOpenMenu((current) => current === "alerts" ? null : "alerts")} aria-label={t("navbar.notifications")} aria-expanded={openMenu === "alerts"} aria-controls="notification-menu"><Bell size={19} /><i /><b>{allActiveAlerts.length}</b></button>
+          {openMenu === "alerts" && <section className="header-popover notification-menu" id="notification-menu" aria-label={t("navbar.recentAlerts")}><header><div><span>{t("navbar.notifications")}</span><strong>{allActiveAlerts.length} {t("common.active")}</strong></div></header><div className="header-alert-list">{activeAlerts.map((alert) => <Link to="/alerts" className={`header-alert-item ${alert.severity}`} key={alert.id}><CircleAlert size={17}/><span><strong>{t(alert.titleKey)}</strong><small>{alert.device} · {alert.time}</small></span></Link>)}</div><Link className="popover-footer-link" to="/alerts">{t("navbar.viewAllAlerts")}</Link></section>}
         </div>
         <div className="header-menu-wrap profile-menu-wrap">
           <button className="profile-button" onClick={() => setOpenMenu((current) => current === "profile" ? null : "profile")} aria-label={t("navbar.profile")} aria-expanded={openMenu === "profile"} aria-controls="profile-menu"><CircleUserRound size={29} /><ChevronDown size={15} /></button>

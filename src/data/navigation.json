@@ -1,5 +1,6 @@
 [
   { "path": "/dashboard", "labelKey": "nav.dashboard", "icon": "LayoutDashboard" },
+  { "path": "/farm-map", "labelKey": "nav.farmMap", "icon": "MapPinned" },
   { "path": "/soil-analysis", "labelKey": "nav.soilAnalysis", "icon": "FlaskConical" },
   { "path": "/crop-recommendation", "labelKey": "nav.cropRecommendation", "icon": "Sprout" },
   { "path": "/irrigation", "labelKey": "nav.irrigation", "icon": "Droplets" },

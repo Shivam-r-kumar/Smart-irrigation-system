@@ -70,22 +70,34 @@ export function limitHistoryToElapsedTime(series, isToday, now = new Date()) {
 export function buildFallbackHistory(metricId, currentValue, dateKey) {
   const seed = seedFrom(`${metricId}-${dateKey}`);
   const numericCurrent = typeof currentValue === "boolean" ? Number(currentValue) : Number(currentValue);
+  const profile = profiles[metricId] || { amplitude: 5, min: 0, max: 100, decimals: 1 };
+  const base = Number.isFinite(numericCurrent) ? numericCurrent : 0;
+  const dayVariation = (seed % 5) - 2;
 
-  return Array.from({ length: 24 }, (_, hour) => {
+  let series = Array.from({ length: 24 }, (_, hour) => {
+    const daylight = hour >= 6 && hour <= 18 ? Math.sin(((hour - 6) / 12) * Math.PI) : 0;
+    const noise = ((((seed + hour * 37) % 21) / 20) - 0.5);
     let value;
     if (metricId === "pumpState") {
-      value = (hour >= 5 && hour <= 7) || (hour >= 18 && hour <= 20) ? 1 : 0;
+      value = (hour >= 13 && hour <= 14) || (hour >= 18 && hour <= 19) ? 1 : 0;
     } else if (metricId === "lightIntensity") {
-      const daylight = hour >= 6 && hour <= 18 ? Math.sin(((hour - 6) / 12) * Math.PI) : 0;
       const cloudFactor = 0.82 + ((seed + hour * 17) % 15) / 100;
       value = Math.round(Math.max(0, (numericCurrent || 18500) * daylight * cloudFactor));
+    } else if (metricId === "soilMoisture") {
+      value = round(clamp(base + dayVariation + 3 - daylight * 10 + noise * 1.4, profile.min, profile.max), profile.decimals);
+    } else if (metricId === "temperature") {
+      value = round(clamp(base + dayVariation * 0.3 - 4 + daylight * 8 + noise * 0.8, profile.min, profile.max), profile.decimals);
+    } else if (metricId === "humidity") {
+      value = round(clamp(base - dayVariation + 6 - daylight * 12 + noise * 1.5, profile.min, profile.max), profile.decimals);
+    } else if (metricId === "waterTankLevel") {
+      const pumpDraw = hour >= 13 ? 2 : 0;
+      value = round(clamp(base + 6 + dayVariation - hour * 0.34 - pumpDraw + noise * 0.8, profile.min, profile.max), profile.decimals);
+    } else if (metricId === "soilPH") {
+      value = round(clamp(base + Math.sin((hour / 24) * Math.PI * 2) * 0.08 + noise * 0.03, profile.min, profile.max), profile.decimals);
+    } else if (metricId === "ec") {
+      value = round(clamp(base + daylight * 0.08 + noise * 0.025, profile.min, profile.max), profile.decimals);
     } else {
-      const profile = profiles[metricId] || { amplitude: 5, min: 0, max: 100, decimals: 1 };
-      const base = Number.isFinite(numericCurrent) ? numericCurrent : 0;
-      const phase = (seed % 8) - 4;
-      const wave = Math.sin(((hour + phase) / 24) * Math.PI * 2) * profile.amplitude;
-      const noise = ((((seed * (hour + 3)) % 19) / 18) - 0.5) * profile.amplitude * 0.35;
-      value = round(clamp(base + wave + noise, profile.min, profile.max), profile.decimals);
+      value = round(clamp(base + Math.sin((hour / 24) * Math.PI * 2) * profile.amplitude + noise, profile.min, profile.max), profile.decimals);
     }
 
     return {
@@ -94,4 +106,17 @@ export function buildFallbackHistory(metricId, currentValue, dateKey) {
       value,
     };
   });
+
+  const isToday = dateKey === formatDateKey(new Date());
+  if (isToday && Number.isFinite(numericCurrent) && metricId !== "lightIntensity") {
+    const currentHour = new Date().getHours();
+    if (metricId === "pumpState") {
+      series[currentHour] = { ...series[currentHour], value: numericCurrent };
+    } else {
+      const adjustment = numericCurrent - series[currentHour].value;
+      series = series.map((point) => ({ ...point, value: round(clamp(point.value + adjustment, profile.min, profile.max), profile.decimals) }));
+    }
+  }
+
+  return series;
 }

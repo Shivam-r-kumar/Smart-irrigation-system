@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Leaf, Sprout, TrendingDown } from "lucide-react";
+import { ArrowRight, Leaf, MapPinned, Sprout, TrendingDown } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import dashboard from "../data/dashboard.json";
 import { useLanguage } from "../context/LanguageContext";
@@ -25,7 +25,7 @@ export default function Dashboard() {
     <div className="page-stack dashboard-page">
       {error && <div className="inline-notice warning">Live connection is unavailable. Showing safe demo data.</div>}
       <section className="farm-hero">
-        <div className="hero-copy"><span className="eyebrow">{t(dashboard.heroKickerKey)} · {connection === "live" ? t("common.live") : t("common.demo")}</span><h1>{t(dashboard.headingKey)}</h1><p>{t(dashboard.descriptionKey)}</p><div className="hero-rule" /></div>
+        <div className="hero-copy"><span className="eyebrow">{t(dashboard.heroKickerKey)} · {connection === "live" ? t("common.live") : t("common.demo")}</span><h1>{t(dashboard.headingKey)}</h1><p>{t(dashboard.descriptionKey)}</p><Link className="hero-farm-link" to="/farm-map"><MapPinned size={15} />{t("dashboard.viewFarm")}<ArrowRight size={14} /></Link></div>
         <div className="field-scene" aria-hidden="true"><div className="sun-disc" /><div className="farmhouse" /><div className="tractor">●━●</div><div className="crop-rows" /><div className="irrigation-arc one" /><div className="irrigation-arc two" /></div>
       </section>
 

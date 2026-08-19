@@ -14,6 +14,7 @@ import Sensors from "./pages/Sensors";
 import Alerts from "./pages/Alerts";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
+import FarmMap from "./pages/FarmMap";
 
 export default function App() {
   const [mounted, setMounted] = useState(false);
@@ -36,6 +37,7 @@ export default function App() {
                 <Route path="/alerts" element={<Alerts />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/farm-map" element={<FarmMap />} />
                 <Route path="*" element={<Navigate to="/dashboard" replace />} />
               </Routes>
             </AppShell>

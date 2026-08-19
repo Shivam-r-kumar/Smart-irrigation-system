@@ -24,9 +24,14 @@ npx vercel --prod
 
 Add the `VITE_FIREBASE_*` values from `.env.example` in the Vercel project's Environment Variables when Firebase is required.
 
+### Google farm map
+
+The `/farm-map` route uses the real Google Maps satellite layer with an editable farm boundary and coordinate-based clickable device markers. Enable **Maps JavaScript API** in Google Cloud, restrict the browser key to your local and Vercel domains, then set `VITE_GOOGLE_MAPS_API_KEY` in `.env.local` and in Vercel → Project Settings → Environment Variables. Redeploy after adding or changing the variable.
+
 ## Available experiences
 
 - Real-time field dashboard and irrigation controls
+- Google satellite farm map with boundary mapping and clickable device coordinates
 - Soil health and NPK analysis
 - Rule-based crop recommendation ready for an ML API
 - Device fleet, alert filtering, and reporting

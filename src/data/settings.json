@@ -3,7 +3,7 @@
   "descriptionKey": "settings.description",
   "profile": { "name": "Arjun Sharma", "email": "arjun@greenfields.in", "phone": "+91 98765 43210" },
   "farm": { "name": "Greenfields Farm", "location": "Ludhiana, Punjab", "area": "18.5 acres", "soilType": "Loamy", "currentCrop": "Wheat" },
-  "device": { "id": "FIELD-001", "status": "Online", "firebase": "Demo data connected" },
+  "device": { "id": "FIELD-001", "status": "Online", "firebase": "Live Realtime Database" },
   "thresholds": { "minimumMoisture": 35, "maximumMoisture": 68, "maximumPumpDuration": 15, "lowTankThreshold": 20 },
   "temperatureUnits": ["Celsius", "Fahrenheit"]
 }

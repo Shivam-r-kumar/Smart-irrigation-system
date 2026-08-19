@@ -1,12 +1,12 @@
 {
   "headingKey": "soil.title",
   "descriptionKey": "soil.description",
-  "healthScore": 78,
+  "healthScore": 72,
   "sample": "Field A · 18 Aug 2026",
   "parameters": [
     { "id": "nitrogen", "labelKey": "metrics.nitrogen", "value": 120, "unit": "kg/ha", "score": 72, "statusKey": "status.medium", "tone": "green" },
     { "id": "phosphorus", "labelKey": "metrics.phosphorus", "value": 60, "unit": "kg/ha", "score": 48, "statusKey": "status.low", "tone": "amber" },
-    { "id": "potassium", "labelKey": "metrics.potassium", "value": 40, "unit": "kg/ha", "score": 82, "statusKey": "status.good", "tone": "blue" },
+    { "id": "potassium", "labelKey": "metrics.potassium", "value": 40, "unit": "kg/ha", "score": 52, "statusKey": "status.medium", "tone": "blue" },
     { "id": "soilPH", "labelKey": "metrics.soilPH", "value": 6.5, "unit": "pH", "score": 76, "statusKey": "status.slightlyAcidic", "tone": "purple" },
     { "id": "organicCarbon", "labelKey": "metrics.organicCarbon", "value": 0.85, "unit": "%", "score": 63, "statusKey": "status.medium", "tone": "green" },
     { "id": "ec", "labelKey": "metrics.ec", "value": 0.72, "unit": "dS/m", "score": 80, "statusKey": "status.normal", "tone": "cyan" }
