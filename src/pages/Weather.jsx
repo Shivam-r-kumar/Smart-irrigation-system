@@ -91,7 +91,7 @@ export default function Weather() {
       </section>
 
       <section className="card weather-window-card">
-        <header className="card-header weather-section-header"><div><h2><CalendarRange size={18} />{t("weather.thirtyDayTitle")}</h2><p>{t("weather.thirtyDayDescription")}</p></div><div className="weather-window-counts"><span>{pastDays.length} {t("weather.previous")}</span><b>{t("common.today")}</b><span>{futureDays.length} {t("weather.next")}</span></div></header>
+        <header className="card-header weather-section-header"><div><h2><CalendarRange size={18} />{t("weather.thirtyDayTitle")}</h2><p>{t("weather.thirtyDayDescription")}</p></div><div className="weather-window-counts"><span>{pastDays.length} {t("weather.previous")}</span><button type="button" className={selectedDate === todayIso ? "active" : ""} onClick={() => setSelectedDate(todayIso)}>{t("common.today")}</button><span>{futureDays.length} {t("weather.next")}</span></div></header>
         <div className="weather-day-navigator">
           <button type="button" className="device-slide-arrow" onClick={() => scrollTimeline(-1)} aria-label={t("weather.previousDays")}><ChevronLeft size={17} /></button>
           <div className="weather-day-viewport" ref={timelineRef}>

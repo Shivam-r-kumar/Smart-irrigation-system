@@ -177,7 +177,7 @@ export async function fetchFarmWeather(latitude, longitude, signal) {
 
   const [shortResponse, seasonalResponse] = await Promise.all([
     fetch(`${SHORT_RANGE_URL}?${shortRangeParams}`, { signal }),
-    fetch(`${SEASONAL_URL}?${seasonalParams}`, { signal }),
+    fetch(`${SEASONAL_URL}?${seasonalParams}`, { signal }).catch(() => null),
   ]);
   if (!shortResponse.ok) throw new Error(`Weather request failed with ${shortResponse.status}`);
 
@@ -189,7 +189,7 @@ export async function fetchFarmWeather(latitude, longitude, signal) {
 
   let months = buildFallbackWeather().months;
   let seasonalSource = "fallback";
-  if (seasonalResponse.ok) {
+  if (seasonalResponse?.ok) {
     const seasonal = await seasonalResponse.json();
     const mappedMonths = mapMonthlyWeather(seasonal.monthly);
     if (mappedMonths.length === 6) {

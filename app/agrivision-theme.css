@@ -451,9 +451,10 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
 .weather-section-header h2 svg { color: var(--green); }
 .weather-section-header p { margin: 0; color: var(--muted); font-size: 9px; line-height: 1.5; }
 .weather-window-counts { display: flex; align-items: center; gap: 5px; }
-.weather-window-counts span, .weather-window-counts b { min-height: 27px; padding: 0 9px; display: inline-flex; align-items: center; border-radius: 14px; font-size: 8px; white-space: nowrap; }
+.weather-window-counts span, .weather-window-counts button { min-height: 27px; padding: 0 9px; display: inline-flex; align-items: center; border: 0; border-radius: 14px; font-size: 8px; white-space: nowrap; }
 .weather-window-counts span { color: var(--muted); background: var(--card-soft); }
-.weather-window-counts b { color: var(--green); background: var(--green-soft); }
+.weather-window-counts button { color: var(--green); background: var(--green-soft); cursor: pointer; font-weight: 780; }
+.weather-window-counts button.active { color: white; background: var(--green); }
 .weather-day-navigator { padding: 13px 14px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 9px; align-items: center; border-bottom: 1px solid var(--border); background: var(--card-soft); }
 .weather-day-viewport { min-width: 0; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x mandatory; }
 .weather-day-viewport::-webkit-scrollbar { display: none; }
