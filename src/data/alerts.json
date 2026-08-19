@@ -1,0 +1,12 @@
+{
+  "headingKey": "alerts.title",
+  "descriptionKey": "alerts.description",
+  "alerts": [
+    { "id": 1, "titleKey": "alerts.lowMoisture", "detailKey": "alerts.lowMoistureDetail", "device": "FIELD-001", "time": "18 Aug 2026, 08:45", "severity": "critical", "status": "active" },
+    { "id": 2, "titleKey": "alerts.tankLow", "detailKey": "alerts.tankLowDetail", "device": "TANK-001", "time": "18 Aug 2026, 08:12", "severity": "warning", "status": "active" },
+    { "id": 3, "titleKey": "alerts.pumpStarted", "detailKey": "alerts.pumpStartedDetail", "device": "FIELD-001", "time": "18 Aug 2026, 08:30", "severity": "info", "status": "resolved" },
+    { "id": 4, "titleKey": "alerts.rainExpected", "detailKey": "alerts.rainExpectedDetail", "device": "WEATHER-01", "time": "18 Aug 2026, 07:15", "severity": "info", "status": "active" },
+    { "id": 5, "titleKey": "alerts.sensorOffline", "detailKey": "alerts.sensorOfflineDetail", "device": "WEATHER-01", "time": "18 Aug 2026, 06:58", "severity": "critical", "status": "active" },
+    { "id": 6, "titleKey": "alerts.highTemp", "detailKey": "alerts.highTempDetail", "device": "FIELD-002", "time": "17 Aug 2026, 14:20", "severity": "warning", "status": "resolved" }
+  ]
+}

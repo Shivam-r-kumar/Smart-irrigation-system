@@ -1,0 +1,20 @@
+{
+  "headingKey": "irrigation.title",
+  "descriptionKey": "irrigation.description",
+  "conditions": [
+    { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "suffix": "%", "icon": "Droplets" },
+    { "id": "temperature", "labelKey": "metrics.temperature", "suffix": "°C", "icon": "Thermometer" },
+    { "id": "humidity", "labelKey": "metrics.humidity", "suffix": "%", "icon": "CloudSun" },
+    { "id": "rainProbability", "labelKey": "metrics.rainProbability", "suffix": "%", "icon": "CloudRain" },
+    { "id": "waterTankLevel", "labelKey": "metrics.tankLevel", "suffix": "%", "icon": "Container" }
+  ],
+  "warnings": [
+    { "type": "rain", "titleKey": "irrigation.rainWarning", "detailKey": "irrigation.rainDetail", "severity": "warning" },
+    { "type": "safe", "titleKey": "irrigation.safetyOkay", "detailKey": "irrigation.safetyDetail", "severity": "success" }
+  ],
+  "events": [
+    { "date": "18 Aug · 08:30", "modeKey": "irrigation.automatic", "duration": "8 min", "water": "12 L" },
+    { "date": "17 Aug · 18:10", "modeKey": "irrigation.manual", "duration": "6 min", "water": "9 L" },
+    { "date": "17 Aug · 07:45", "modeKey": "irrigation.automatic", "duration": "9 min", "water": "13.5 L" }
+  ]
+}

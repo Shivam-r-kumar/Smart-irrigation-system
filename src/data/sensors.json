@@ -1,0 +1,10 @@
+{
+  "headingKey": "sensors.title",
+  "descriptionKey": "sensors.description",
+  "devices": [
+    { "id": "FIELD-001", "zone": "North Field", "status": "online", "battery": 82, "signal": 94, "lastSeen": "10 sec ago", "sensors": ["Soil moisture", "Temperature", "Humidity", "NPK"] },
+    { "id": "FIELD-002", "zone": "East Orchard", "status": "warning", "battery": 34, "signal": 68, "lastSeen": "1 min ago", "sensors": ["Soil moisture", "Light", "pH", "EC"] },
+    { "id": "TANK-001", "zone": "Pump House", "status": "online", "battery": 96, "signal": 88, "lastSeen": "6 sec ago", "sensors": ["Tank level", "Flow rate", "Pump state"] },
+    { "id": "WEATHER-01", "zone": "Farm Office", "status": "offline", "battery": 0, "signal": 0, "lastSeen": "42 min ago", "sensors": ["Rain", "Temperature", "Humidity", "Wind"] }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "headingKey": "crop.title",
+  "descriptionKey": "crop.description",
+  "fields": [
+    { "id": "nitrogen", "labelKey": "metrics.nitrogen", "type": "number", "unit": "kg/ha", "default": 120 },
+    { "id": "phosphorus", "labelKey": "metrics.phosphorus", "type": "number", "unit": "kg/ha", "default": 60 },
+    { "id": "potassium", "labelKey": "metrics.potassium", "type": "number", "unit": "kg/ha", "default": 40 },
+    { "id": "soilPH", "labelKey": "metrics.soilPH", "type": "number", "step": "0.1", "default": 6.5 },
+    { "id": "ec", "labelKey": "metrics.ec", "type": "number", "unit": "dS/m", "step": "0.01", "default": 0.72 },
+    { "id": "organicCarbon", "labelKey": "metrics.organicCarbon", "type": "number", "unit": "%", "step": "0.01", "default": 0.85 },
+    { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "type": "number", "unit": "%", "default": 42 }
+  ],
+  "soilTypes": ["Sandy", "Loamy", "Clay", "Silty", "Peaty", "Chalky"],
+  "seasons": ["Kharif", "Rabi", "Zaid"],
+  "regions": ["Punjab", "Haryana", "Uttar Pradesh", "Madhya Pradesh", "Maharashtra", "Rajasthan", "Karnataka", "West Bengal"],
+  "cropDetails": {
+    "Wheat": { "moisture": "40–55%", "ph": "6.0–7.5", "water": "Medium", "season": "Rabi" },
+    "Chickpea": { "moisture": "35–45%", "ph": "6.0–8.0", "water": "Low", "season": "Rabi" },
+    "Mustard": { "moisture": "35–50%", "ph": "6.0–7.5", "water": "Low", "season": "Rabi" },
+    "Barley": { "moisture": "35–50%", "ph": "6.5–8.0", "water": "Medium", "season": "Rabi" },
+    "Rice": { "moisture": "65–85%", "ph": "5.5–7.0", "water": "High", "season": "Kharif" },
+    "Maize": { "moisture": "45–60%", "ph": "5.8–7.2", "water": "Medium", "season": "Kharif" }
+  }
+}
