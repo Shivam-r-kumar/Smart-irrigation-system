@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-The application is connected by default to the AgriSmart Firebase Realtime Database. An environment-specific database can override it by copying `.env.example` to `.env.local` and filling in the Firebase Web App values. ESP32 readings use `sensorReadings/FIELD-001`, while dashboard pump commands use `irrigation/FIELD-001`.
+The application is connected by default to the AgriSmart Firebase Realtime Database. An environment-specific database can override it by copying `.env.example` to `.env.local` and filling in the Firebase Web App values. ESP32 readings use `sensorReadings/FIELD-001`. Farm boundary and device additions/removals sync through `farmMapping/default`, while each mapped motor uses `irrigation/<MOTOR-ID>` for its live pump state. Start All and Stop All update every mapped motor atomically.
 
 ## Deploy to Vercel
 

@@ -6,7 +6,7 @@ import farmMapData from "../data/farmMap.json";
 import { useLanguage } from "../context/LanguageContext";
 import { useFarm } from "../context/FarmContext";
 import { useSensorData } from "../hooks/useSensorData";
-import { calculatePolygonAreaAcres } from "../utils/farmMapping";
+import { calculatePolygonAreaAcres, isMotorDevice } from "../utils/farmMapping";
 import { GOOGLE_MAPS_API_KEY, loadGoogleMaps } from "../utils/googleMaps";
 import { createDeviceMarkerClass } from "../utils/googleMapOverlays";
 
@@ -16,7 +16,7 @@ const farmCenter = farmMapData.farm.coordinates;
 export default function FarmMap() {
   const { t } = useLanguage();
   const { data, connection } = useSensorData();
-  const { farmBoundary: boundary, farmDevices: devices } = useFarm();
+  const { farmBoundary: boundary, farmDevices: devices, getMotorPumpState } = useFarm();
   const [selectedDeviceId, setSelectedDeviceId] = useState(() => devices[0]?.id || null);
   const [deviceSlide, setDeviceSlide] = useState(0);
   const [mapStatus, setMapStatus] = useState(apiKey ? "loading" : "missing-key");
@@ -38,10 +38,11 @@ export default function FarmMap() {
       let value = metric.value;
       if (selectedDevice.id === "FIELD-001" && metric.id !== "soilTemperature" && data[metric.id] !== undefined) value = data[metric.id];
       if (selectedDevice.id === "PUMP-A01" && metric.id === "pumpState") value = Boolean(data.pumpState);
+      if (isMotorDevice(selectedDevice) && metric.id === "pumpState") value = getMotorPumpState(selectedDevice);
       if (selectedDevice.id === "TANK-001" && metric.id === "waterTankLevel" && data.waterTankLevel !== undefined) value = data.waterTankLevel;
       return { ...metric, value };
     });
-  }, [data, selectedDevice]);
+  }, [data, getMotorPumpState, selectedDevice]);
 
   useEffect(() => {
     if (!apiKey || !mapNodeRef.current) return undefined;
@@ -121,7 +122,8 @@ export default function FarmMap() {
   }, [devices, selectedDeviceId]);
 
   const formatMetric = (metric) => metric.type === "state" ? (metric.value ? t("farmMap.running") : t("farmMap.stopped")) : `${metric.value}${metric.suffix || ""}`;
-  const isMotorDevice = selectedDevice?.typeKey === "farmMap.deviceTypes.motor" || selectedDevice?.typeKey === "farmMap.deviceTypes.motorControlUnit";
+  const selectedIsMotor = isMotorDevice(selectedDevice);
+  const selectedMotorRunning = selectedIsMotor && getMotorPumpState(selectedDevice);
 
   return (
     <div className="page-stack farm-map-page">
@@ -136,7 +138,7 @@ export default function FarmMap() {
           <div className="farm-map-legend"><span><i className="boundary-swatch" />{t("farmMap.farmBoundary")}<b>·</b><i className="device-swatch" />{devices.length} {t("farmMap.devices")}</span><small>{t("farmMap.deviceTapHint")}</small></div>
         </div>
 
-        {selectedDevice ? <aside className={`farm-zone-panel device-detail-panel ${isMotorDevice ? "motor-device-panel" : ""}`}>
+        {selectedDevice ? <aside className={`farm-zone-panel device-detail-panel ${selectedIsMotor ? "motor-device-panel" : ""}`}>
           <header className="farm-device-panel-head"><div className="device-heading-icon" style={{ "--device-color": selectedDevice.color }}><span>{selectedDevice.marker}</span></div><div><span>{t(selectedDevice.typeKey)}</span><h2>{selectedDevice.name}</h2><p>{selectedDevice.id}</p></div><span className={`status-badge ${selectedDevice.status === "online" ? "success" : "warning"}`}><i />{t(`common.${selectedDevice.status === "online" ? "online" : "warning"}`)}</span></header>
           <div className="farm-device-slider" aria-label={t("farmMap.chooseDevice")}>
             <button className="device-slide-arrow" type="button" disabled={deviceSlide === 0} onClick={() => setDeviceSlide((page) => Math.max(0, page - 1))} aria-label={t("farmMap.previousDevices")}><Icon name="ChevronLeft" size={16} /></button>
@@ -149,7 +151,7 @@ export default function FarmMap() {
           <div className="farm-zone-metrics device-metrics">{displayedMetrics.map((metric) => <div key={metric.id}><span className={`zone-metric-icon ${metric.tone}`}><Icon name={metric.icon} size={18} /></span><small>{t(metric.labelKey)}</small><strong>{formatMetric(metric)}</strong></div>)}</div>
           <div className="device-coordinate-card"><Icon name="MapPin" size={17} /><span><small>{t("farmMap.deviceCoordinates")}</small><strong>{selectedDevice.coordinates.lat.toFixed(6)}, {selectedDevice.coordinates.lng.toFixed(6)}</strong></span></div>
           <div className={`zone-advisory ${selectedDevice.status === "warning" ? "warning" : "healthy"}`}><Icon name={selectedDevice.status === "warning" ? "TriangleAlert" : "CircleCheckBig"} size={18} /><div><strong>{t("farmMap.deviceStatus")}</strong><span>{t(selectedDevice.noteKey)}</span></div></div>
-          {isMotorDevice && <section className="zone-motor-card device-motor-link"><header><span><Icon name="Tractor" size={17} />{t("farmMap.motorControl")}</span><b className="online"><i />{t("common.online")}</b></header><Link className="button ghost small" to="/irrigation"><Icon name="SlidersHorizontal" size={14} />{t("farmMap.openControls")}</Link></section>}
+          {selectedIsMotor && <section className="zone-motor-card device-motor-link"><header><span><Icon name="Tractor" size={17} />{t("farmMap.motorControl")}</span><b className={selectedMotorRunning ? "online" : "offline"}><i />{selectedMotorRunning ? t("farmMap.running") : t("farmMap.stopped")}</b></header><Link className="button ghost small" to="/irrigation"><Icon name="SlidersHorizontal" size={14} />{t("farmMap.openControls")}</Link></section>}
           <div className="zone-device-strip"><span><Icon name="BatteryMedium" size={15} />{selectedDevice.battery}%</span><span><Icon name="Wifi" size={15} />{selectedDevice.signal}%</span><span><Icon name="Clock3" size={15} />{selectedDevice.lastSeen}</span></div>
           <footer className="farm-zone-panel-foot"><span><Icon name="Spline" size={13} />{boundary.length} {t("farmMap.boundaryPoints")}</span><strong>{boundaryArea} {t("farmMap.acres")}</strong></footer>
         </aside> : <aside className="farm-zone-panel empty-device-panel"><Icon name="RadioTower" size={34} /><h2>{t("farmMap.noDevices")}</h2><p>{t("farmMap.noDevicesHelp")}</p><Link className="button primary" to="/settings"><Icon name="Settings" size={15} />{t("farmMap.mapperTitle")}</Link></aside>}

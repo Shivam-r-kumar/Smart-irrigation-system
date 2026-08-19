@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { buildFallbackHistory, limitHistoryToElapsedTime } from "../src/utils/sensorHistory.js";
 import { getSoilRemedies } from "../src/utils/soilRemedies.js";
-import { calculatePolygonAreaAcres, isPointInsideBoundary, loadFarmDevices, saveFarmDevices } from "../src/utils/farmMapping.js";
+import { calculatePolygonAreaAcres, getMotorDefaultPumpState, isMotorDevice, isPointInsideBoundary, loadFarmDevices, saveFarmDevices } from "../src/utils/farmMapping.js";
 import { buildFallbackWeather } from "../src/utils/weather.js";
 
 test("builds the production AgriSmart shell", async () => {
@@ -137,4 +137,30 @@ test("accepts soil test PDFs without pretending to persist them", async () => {
   assert.match(uploadSource, /URL\.createObjectURL/);
   assert.match(uploadSource, /URL\.revokeObjectURL/);
   assert.doesNotMatch(uploadSource, /fetch\(|firebase|uploaded successfully/i);
+});
+
+test("controls every mapped motor individually and as one fleet", async () => {
+  const motor = {
+    id: "MOTOR-001",
+    typeKey: "farmMap.deviceTypes.motorControlUnit",
+    metrics: [{ id: "pumpState", value: true }],
+  };
+  const sensor = { id: "SENSOR-001", typeKey: "farmMap.deviceTypes.sensorNode", metrics: [] };
+  assert.equal(isMotorDevice(motor), true);
+  assert.equal(isMotorDevice(sensor), false);
+  assert.equal(getMotorDefaultPumpState(motor), true);
+
+  const controlSource = await readFile(new URL("../src/components/PumpControl.jsx", import.meta.url), "utf8");
+  const contextSource = await readFile(new URL("../src/context/FarmContext.jsx", import.meta.url), "utf8");
+  const irrigationService = await readFile(new URL("../src/firebase/irrigationService.js", import.meta.url), "utf8");
+  const mappingService = await readFile(new URL("../src/firebase/mappingService.js", import.meta.url), "utf8");
+  assert.match(controlSource, /motorDevices\.map/);
+  assert.match(controlSource, /controlMotor\(pendingAction\.deviceId/);
+  assert.match(controlSource, /controlAllMotors\(pendingAction\.state\)/);
+  assert.match(contextSource, /farmDevices\.filter\(isMotorDevice\)/);
+  assert.match(contextSource, /syncMotorRegistry\(previousDevices, nextDevices\)/);
+  assert.match(irrigationService, /setAllMotorStates/);
+  assert.match(irrigationService, /patch\[device\.id\] = null/);
+  assert.match(irrigationService, /ref\(database, IRRIGATION_PATH\)/);
+  assert.match(mappingService, /set\(ref\(database, SHARED_MAPPING_PATH\)/);
 });

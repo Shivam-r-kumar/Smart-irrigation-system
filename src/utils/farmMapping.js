@@ -1,5 +1,18 @@
 const EARTH_RADIUS_METRES = 6378137;
 const SQUARE_METRES_PER_ACRE = 4046.8564224;
+const MOTOR_TYPE_KEYS = new Set([
+  "farmMap.deviceTypes.motor",
+  "farmMap.deviceTypes.motorControlUnit",
+]);
+
+export function isMotorDevice(device) {
+  return Boolean(device?.id) && MOTOR_TYPE_KEYS.has(device.typeKey);
+}
+
+export function getMotorDefaultPumpState(device) {
+  if (!isMotorDevice(device)) return false;
+  return Boolean(device.metrics?.find((metric) => metric.id === "pumpState")?.value);
+}
 
 export function calculatePolygonAreaAcres(path) {
   if (!Array.isArray(path) || path.length < 3) return 0;

@@ -850,6 +850,92 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
   .soil-upload-footer .button { flex: 1; }
 }
 
+/* Firebase-synced multi-motor irrigation controls */
+.pump-card.fleet { overflow: hidden; }
+.irrigation-rail { grid-template-columns: minmax(0, 1fr); }
+.motor-fleet-summary {
+  min-width: 0;
+  margin: 11px 12px 0;
+  padding: 11px 12px;
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid color-mix(in srgb, var(--green) 24%, var(--border));
+  border-radius: 10px;
+  background: linear-gradient(110deg, color-mix(in srgb, var(--green) 8%, var(--card)), var(--card-soft));
+}
+.motor-fleet-icon { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 9px; color: var(--green); background: var(--green-soft); }
+.motor-fleet-summary > div { min-width: 0; display: grid; gap: 3px; }
+.motor-fleet-summary > div > span { color: var(--muted); font-size: 8px; text-transform: uppercase; letter-spacing: .06em; }
+.motor-fleet-summary > div > strong { color: var(--text-strong); font-size: 12px; }
+.all-motor-actions .button { min-height: 38px; }
+.motor-control-section { margin-top: 14px; border-top: 1px solid var(--border); }
+.motor-control-heading { min-height: 58px; padding: 11px 13px; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--card-soft); }
+.motor-control-heading > div { min-width: 0; }
+.motor-control-heading .eyebrow { display: block; margin-bottom: 3px; }
+.motor-control-heading h3 { margin: 0; color: var(--text-strong); font-size: 13px; letter-spacing: -.015em; }
+.motor-control-heading > b { min-width: 27px; height: 27px; display: grid; place-items: center; border-radius: 14px; color: var(--green); background: var(--green-soft); font-size: 10px; }
+.motor-control-list { padding: 9px 12px 12px; display: grid; gap: 7px; }
+.motor-control-row {
+  min-width: 0;
+  min-height: 66px;
+  padding: 9px 10px;
+  display: grid;
+  grid-template-columns: 38px minmax(100px, 1fr) minmax(92px, auto) minmax(174px, auto);
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card-soft);
+  transition: border-color .18s ease, background .18s ease;
+}
+.motor-control-row.running { border-color: color-mix(in srgb, var(--green) 34%, var(--border)); background: color-mix(in srgb, var(--green) 6%, var(--card-soft)); }
+.motor-control-marker { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px; color: white; background: var(--motor-color, var(--amber)); font-size: 9px; font-weight: 850; }
+.motor-control-copy { min-width: 0; display: grid; gap: 3px; }
+.motor-control-copy strong,
+.motor-control-copy small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.motor-control-copy strong { color: var(--text-strong); font-size: 10px; }
+.motor-control-copy small { color: var(--muted); font-size: 8px; }
+.motor-live-state { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 8px; font-weight: 800; white-space: nowrap; }
+.motor-live-state i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.motor-live-state.running { color: var(--green); }
+.motor-live-state.running i { box-shadow: 0 0 0 4px color-mix(in srgb, var(--green) 13%, transparent); animation: agri-breathe 2.2s ease-in-out infinite; }
+.motor-row-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.motor-row-actions .button { min-width: 82px; }
+.motor-empty-state { margin: 10px 12px 12px; padding: 14px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 11px; border: 1px dashed var(--border-strong); border-radius: 10px; color: var(--green); background: var(--card-soft); }
+.motor-empty-state > div { min-width: 0; display: grid; gap: 3px; }
+.motor-empty-state strong { color: var(--text-strong); font-size: 10px; }
+.motor-empty-state span { color: var(--muted); font-size: 8px; line-height: 1.45; }
+.motor-empty-compact { margin: 10px 12px 0; padding: 9px 10px; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 7px; border: 1px dashed var(--border-strong); border-radius: 9px; color: var(--muted); background: var(--card-soft); font-size: 8px; }
+.motor-empty-compact > svg,
+.motor-empty-compact > a { color: var(--green); }
+.motor-empty-compact > a { font-weight: 800; }
+.weather-warning { display: flex; align-items: center; gap: 6px; }
+
+@media (max-width: 1180px) {
+  .motor-control-row { grid-template-columns: 38px minmax(100px, 1fr) auto; }
+  .motor-row-actions { grid-column: 2 / -1; }
+}
+
+@media (max-width: 760px) {
+  .motor-control-row { grid-template-columns: 38px minmax(0, 1fr) auto; }
+  .motor-live-state { justify-self: end; }
+  .motor-row-actions { grid-column: 1 / -1; }
+  .motor-empty-state { grid-template-columns: auto 1fr; }
+  .motor-empty-state .button { grid-column: 1 / -1; width: 100%; }
+}
+
+@media (max-width: 420px) {
+  .motor-fleet-summary { grid-template-columns: 34px minmax(0, 1fr); }
+  .motor-fleet-summary > .status-badge { grid-column: 2; }
+  .motor-control-row { padding: 8px; grid-template-columns: 36px minmax(0, 1fr); }
+  .motor-control-marker { width: 36px; height: 36px; }
+  .motor-live-state { grid-column: 2; justify-self: start; }
+  .motor-row-actions { grid-column: 1 / -1; }
+  .motor-row-actions .button { min-width: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
