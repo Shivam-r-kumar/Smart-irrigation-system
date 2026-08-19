@@ -126,3 +126,15 @@ test("uses the AgriSmart logo as a dashboard home link", async () => {
   assert.match(sidebarSource, /className="brand-home" to="\/dashboard"/);
   assert.match(sidebarSource, /onClick=\{onClose\}/);
 });
+
+test("accepts soil test PDFs without pretending to persist them", async () => {
+  const soilPageSource = await readFile(new URL("../src/pages/SoilAnalysis.jsx", import.meta.url), "utf8");
+  const uploadSource = await readFile(new URL("../src/components/SoilReportUploadModal.jsx", import.meta.url), "utf8");
+  assert.match(soilPageSource, /onClick=\{\(\) => setUploadOpen\(true\)\}/);
+  assert.match(soilPageSource, /setSelectedReport\(\{ file, selectedAt: new Date\(\) \}\)/);
+  assert.match(uploadSource, /accept="application\/pdf,\.pdf"/);
+  assert.match(uploadSource, /10 \* 1024 \* 1024/);
+  assert.match(uploadSource, /URL\.createObjectURL/);
+  assert.match(uploadSource, /URL\.revokeObjectURL/);
+  assert.doesNotMatch(uploadSource, /fetch\(|firebase|uploaded successfully/i);
+});

@@ -694,6 +694,162 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
   .farm-device-slide > button:hover { transform: translateY(-1px); }
 }
 
+/* Frontend-only soil report PDF intake */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.soil-upload-trigger.has-file {
+  color: var(--green);
+  border-color: color-mix(in srgb, var(--green) 38%, var(--border));
+  background: var(--green-soft);
+}
+
+.soil-report-strip {
+  min-width: 0;
+  padding: 12px 14px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  border-color: color-mix(in srgb, var(--green) 32%, var(--border));
+  background: linear-gradient(110deg, color-mix(in srgb, var(--green) 8%, var(--card)), var(--card) 55%);
+}
+
+.soil-report-strip-icon,
+.soil-upload-title-icon,
+.soil-upload-file-icon,
+.soil-upload-cloud {
+  display: grid;
+  place-items: center;
+  color: var(--green);
+  background: var(--green-soft);
+}
+
+.soil-report-strip-icon { width: 42px; height: 42px; border-radius: 11px; }
+.soil-report-strip > div:nth-child(2) { min-width: 0; display: grid; gap: 2px; }
+.soil-report-strip > div:nth-child(2) > span { color: var(--green); font-size: 8px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.soil-report-strip > div:nth-child(2) > strong { overflow: hidden; color: var(--text-strong); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.soil-report-strip > div:nth-child(2) > small { color: var(--muted); font-size: 8px; }
+.soil-report-strip-actions { display: flex; align-items: center; gap: 7px; }
+.soil-report-remove { border: 1px solid color-mix(in srgb, var(--red) 22%, var(--border)); color: var(--red); background: color-mix(in srgb, var(--red) 7%, var(--card)); }
+
+.soil-upload-backdrop {
+  position: fixed;
+  z-index: 145;
+  inset: 0;
+  padding: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(4, 12, 7, .76);
+  backdrop-filter: blur(8px);
+  animation: agri-backdrop-in .2s ease both;
+}
+
+.soil-upload-modal {
+  width: min(580px, calc(100vw - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--text);
+  background: var(--card);
+  box-shadow: 0 28px 82px rgba(0, 0, 0, .42);
+  animation: agri-modal-in .24s cubic-bezier(.18, .8, .25, 1) both;
+}
+
+.soil-upload-header {
+  min-height: 88px;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr) 36px;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(115deg, color-mix(in srgb, var(--green) 8%, var(--card)), var(--card));
+}
+
+.soil-upload-title-icon { width: 42px; height: 42px; border-radius: 11px; }
+.soil-upload-header > div:nth-child(2) { min-width: 0; }
+.soil-upload-header h2 { margin: 3px 0 4px; color: var(--text-strong); font-size: 17px; letter-spacing: -.025em; }
+.soil-upload-header p { margin: 0; color: var(--muted); font-size: 9px; line-height: 1.5; }
+.soil-upload-close { align-self: start; border: 1px solid var(--border); background: var(--card-soft); }
+
+.soil-upload-body { padding: 16px; display: grid; gap: 11px; }
+.soil-upload-dropzone {
+  min-height: 218px;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 7px;
+  border: 1.5px dashed color-mix(in srgb, var(--green) 44%, var(--border));
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--green) 5%, var(--card-soft));
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.soil-upload-dropzone:hover,
+.soil-upload-dropzone:focus-visible,
+.soil-upload-dropzone.is-dragging { outline: none; border-color: var(--green); background: color-mix(in srgb, var(--green) 10%, var(--card)); transform: translateY(-1px); }
+.soil-upload-dropzone.has-error { border-color: var(--red); }
+.soil-upload-cloud { width: 54px; height: 54px; margin-bottom: 3px; border-radius: 15px; }
+.soil-upload-dropzone strong { color: var(--text-strong); font-size: 12px; }
+.soil-upload-dropzone > span:not(.soil-upload-cloud) { color: var(--green); font-size: 9px; font-weight: 750; }
+.soil-upload-dropzone small { margin-top: 5px; color: var(--muted); font-size: 8px; }
+
+.soil-upload-selected {
+  min-width: 0;
+  min-height: 112px;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid color-mix(in srgb, var(--green) 30%, var(--border));
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--green) 6%, var(--card-soft));
+}
+.soil-upload-file-icon { width: 54px; height: 62px; border-radius: 11px; }
+.soil-upload-file-copy { min-width: 0; display: grid; gap: 4px; }
+.soil-upload-file-copy > span { display: flex; align-items: center; gap: 5px; color: var(--green); font-size: 8px; font-weight: 800; text-transform: uppercase; }
+.soil-upload-file-copy > strong { overflow: hidden; color: var(--text-strong); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.soil-upload-file-copy > small { color: var(--muted); font-size: 8px; }
+.soil-upload-file-actions { display: grid; gap: 6px; }
+.soil-upload-error { margin: 0; padding: 9px 11px; border: 1px solid color-mix(in srgb, var(--red) 28%, var(--border)); border-radius: 9px; color: var(--red); background: color-mix(in srgb, var(--red) 7%, var(--card)); font-size: 9px; }
+.soil-upload-note { padding: 10px 11px; display: grid; grid-template-columns: auto 1fr; gap: 8px; border: 1px solid var(--border); border-radius: 10px; color: var(--muted); background: var(--card-soft); font-size: 8px; line-height: 1.5; }
+.soil-upload-note > svg { color: var(--green); }
+.soil-upload-note span { display: block; }
+.soil-upload-note strong { color: var(--text-strong); }
+.soil-upload-footer { min-height: 62px; padding: 12px 16px; display: flex; justify-content: flex-end; gap: 8px; border-top: 1px solid var(--border); background: var(--card-soft); }
+
+@media (max-width: 600px) {
+  .soil-report-strip { grid-template-columns: 38px minmax(0, 1fr); padding: 11px; }
+  .soil-report-strip-icon { width: 38px; height: 38px; }
+  .soil-report-strip-actions { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 36px; }
+  .soil-upload-backdrop { padding: 8px; }
+  .soil-upload-modal { width: calc(100vw - 16px); max-height: calc(100dvh - 16px); border-radius: 13px; }
+  .soil-upload-header { min-height: 78px; padding: 12px; grid-template-columns: 38px minmax(0, 1fr) 34px; gap: 9px; }
+  .soil-upload-title-icon { width: 38px; height: 38px; }
+  .soil-upload-header h2 { font-size: 15px; }
+  .soil-upload-header p { display: none; }
+  .soil-upload-body { padding: 11px; }
+  .soil-upload-dropzone { min-height: 190px; padding: 18px 12px; }
+  .soil-upload-selected { grid-template-columns: 46px minmax(0, 1fr); padding: 12px; }
+  .soil-upload-file-icon { width: 46px; height: 54px; }
+  .soil-upload-file-actions { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; }
+  .soil-upload-footer { padding: 10px 11px; }
+  .soil-upload-footer .button { flex: 1; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;
