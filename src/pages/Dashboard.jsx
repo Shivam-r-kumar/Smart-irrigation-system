@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Leaf, Sprout, TrendingDown } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -10,12 +11,14 @@ import PumpControl from "../components/PumpControl";
 import ChartCard from "../components/ChartCard";
 import Icon from "../components/Icon";
 import LoadingSpinner from "../components/LoadingSpinner";
+import MetricHistoryModal from "../components/MetricHistoryModal";
 
 const tooltipStyle = { borderRadius: 10, border: "1px solid var(--border)", background: "var(--card)", color: "var(--text)" };
 
 export default function Dashboard() {
   const { t } = useLanguage();
   const { data, loading, error, connection } = useSensorData();
+  const [selectedMetric, setSelectedMetric] = useState(null);
   if (loading) return <LoadingSpinner label={t("common.loading")} />;
 
   return (
@@ -30,7 +33,7 @@ export default function Dashboard() {
         <section className="dashboard-main">
           <div className="sensor-grid">
             {dashboard.metrics.map((metric) => (
-              <StatCard key={metric.id} label={t(metric.labelKey)} value={formatMetric(data[metric.id], metric.suffix)} note={t(metric.statusKey)} icon={metric.icon} tone={metric.tone} />
+              <StatCard key={metric.id} label={t(metric.labelKey)} value={formatMetric(data[metric.id], metric.suffix)} note={t(metric.statusKey)} icon={metric.icon} tone={metric.tone} onClick={() => setSelectedMetric({ ...metric, label: t(metric.labelKey) })} historyLabel={t("history.open")} />
             ))}
           </div>
 
@@ -64,6 +67,7 @@ export default function Dashboard() {
           <section className="card npk-card"><header className="card-header"><h2>{t("dashboard.npkBalance")}</h2></header><div className="npk-list">{dashboard.npk.map((item) => <div key={item.nameKey}><div><span>{t(item.nameKey)}</span><strong>{item.value} kg/ha</strong></div><span className="progress-track"><i style={{ width: `${Math.min(item.value / item.target * 100, 100)}%`, background: item.color }} /></span></div>)}</div></section>
         </aside>
       </div>
+      {selectedMetric && <MetricHistoryModal metric={selectedMetric} currentValue={data[selectedMetric.id]} deviceId={data.deviceId || "FIELD-001"} onClose={() => setSelectedMetric(null)} />}
     </div>
   );
 }

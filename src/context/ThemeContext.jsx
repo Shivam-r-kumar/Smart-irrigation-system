@@ -6,8 +6,12 @@ const ThemeContext = createContext(null);
 
 export function ThemeProvider({ children }) {
   const [theme, setTheme] = useState(() => {
-    if (typeof window === "undefined") return "light";
-    return localStorage.getItem("agrismart-theme") || "light";
+    if (typeof window === "undefined") return "dark";
+    try {
+      return localStorage.getItem("agrismart-theme") === "light" ? "light" : "dark";
+    } catch {
+      return "dark";
+    }
   });
 
   useEffect(() => {

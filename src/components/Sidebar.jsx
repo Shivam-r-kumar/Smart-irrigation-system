@@ -1,11 +1,13 @@
 import { NavLink } from "react-router-dom";
 import { Droplet, Leaf, X } from "lucide-react";
 import navigation from "../data/navigation.json";
+import alertData from "../data/alerts.json";
 import { useLanguage } from "../context/LanguageContext";
 import Icon from "./Icon";
 
 export default function Sidebar({ open, onClose }) {
   const { t } = useLanguage();
+  const activeAlertCount = alertData.alerts.filter((alert) => alert.status === "active").length;
   return (
     <>
       <button className={`sidebar-backdrop ${open ? "show" : ""}`} onClick={onClose} aria-label="Close navigation" />
@@ -20,7 +22,7 @@ export default function Sidebar({ open, onClose }) {
             <NavLink key={item.path} to={item.path} onClick={onClose} className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
               <Icon name={item.icon} size={20} />
               <span>{t(item.labelKey)}</span>
-              {item.path === "/alerts" && <b className="alert-count">3</b>}
+              {item.path === "/alerts" && <b className="alert-count">{activeAlertCount}</b>}
             </NavLink>
           ))}
         </nav>
