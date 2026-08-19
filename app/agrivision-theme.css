@@ -70,7 +70,9 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
   padding: 0 0 20px;
   color: var(--green);
 }
-.brand > span:nth-child(2) { display: none; }
+.brand-home { display: flex; align-items: center; justify-content: center; gap: 10px; border-radius: 14px; color: inherit; outline: none; }
+.brand-home:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--green) 24%, transparent); }
+.brand-name { display: none; }
 .brand-mark {
   width: 44px;
   height: 44px;
@@ -78,7 +80,9 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
   border-radius: 14px;
   color: white;
   background: var(--green);
+  transition: transform .2s cubic-bezier(.2, .75, .25, 1), box-shadow .2s ease;
 }
+.brand-home:hover .brand-mark { transform: translateY(-1px) scale(1.03); box-shadow: 0 8px 18px color-mix(in srgb, var(--green) 18%, transparent); }
 .brand-mark svg:first-child { width: 21px; }
 .brand-mark svg:last-child { right: 6px; bottom: 7px; color: white; }
 .sidebar-nav { gap: 7px; overflow: visible; }
@@ -462,8 +466,13 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
 .weather-day-card { width: 106px; min-height: 136px; padding: 10px 8px; display: grid; place-items: center; align-content: center; gap: 3px; border: 1px solid var(--border); border-radius: 10px; color: var(--text); background: var(--card); cursor: pointer; scroll-snap-align: start; transition: border-color .18s ease, transform .18s ease, background .18s ease; }
 .weather-day-card:hover { border-color: color-mix(in srgb, var(--green) 48%, var(--border)); transform: translateY(-1px); }
 .weather-day-card.active { border-color: var(--green); background: var(--green-soft); box-shadow: inset 0 -3px var(--green); }
+.weather-day-card.today { border-color: color-mix(in srgb, var(--green) 62%, var(--border)); background: linear-gradient(150deg, color-mix(in srgb, var(--green) 15%, var(--card)), var(--green-soft)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 16%, transparent); }
+.weather-day-card.today.active { color: white; border-color: var(--green); background: linear-gradient(145deg, var(--green), var(--green-dark)); box-shadow: 0 8px 18px color-mix(in srgb, var(--green) 22%, transparent); }
+.weather-day-card.today.active > * { color: white; }
+.weather-day-card.today.active > b i, .weather-day-card.today.active > span { color: rgba(255, 255, 255, .72); }
 .weather-day-card > small { color: var(--muted); font-size: 6px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
 .weather-day-card.future > small { color: var(--green); }
+.weather-day-card.today > small { color: var(--green); }
 .weather-day-card > strong { color: var(--text-strong); font-size: 10px; }
 .weather-day-card > span { color: var(--muted); font-size: 8px; }
 .weather-day-card > svg { margin: 5px 0 3px; color: var(--green); }
@@ -530,7 +539,7 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
     background: var(--shell-rail);
   }
   .brand { justify-content: flex-start; padding-inline: 7px; }
-  .brand > span:nth-child(2) { display: inline; color: var(--text-strong); font-size: 18px; }
+  .brand-name { display: inline; color: var(--text-strong); font-size: 18px; }
   .sidebar-close.icon-button { color: var(--text); }
   .sidebar-nav { overflow-y: auto; }
   .nav-link { justify-content: flex-start; padding-inline: 14px; }

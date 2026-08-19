@@ -59,7 +59,7 @@ export default function Weather() {
   const selectedMeta = getWeatherMeta(selectedDay.weatherCode);
   const pastDays = weather.days.filter((day) => day.date < todayIso).slice(-15);
   const futureDays = weather.days.filter((day) => day.date > todayIso).slice(0, 15);
-  const timelineDays = [...pastDays, ...futureDays];
+  const timelineDays = [...pastDays, today, ...futureDays];
   const wettestMonth = useMemo(() => weather.months.reduce((wettest, month) => month.rain > wettest.rain ? month : wettest, weather.months[0]), [weather.months]);
   const chartDays = weather.days.map((day) => ({ ...day, label: formatDate(day.date, language, { day: "numeric", month: "short" }) }));
   const monthChart = weather.months.map((month) => ({ ...month, label: formatDate(month.date, language, { month: "short" }) }));
@@ -98,8 +98,11 @@ export default function Weather() {
             <div className="weather-day-track">
               {timelineDays.map((day) => {
                 const meta = getWeatherMeta(day.weatherCode);
+                const isToday = day.date === todayIso;
                 const isPast = day.date < todayIso;
-                return <button type="button" className={`weather-day-card ${selectedDate === day.date ? "active" : ""} ${isPast ? "past" : "future"}`} key={day.date} onClick={() => setSelectedDate(day.date)}><small>{isPast ? t("weather.recorded") : t("weather.forecast")}</small><strong>{formatDate(day.date, language, { weekday: "short" })}</strong><span>{formatDate(day.date, language, { day: "numeric", month: "short" })}</span><Icon name={meta.icon} size={24} /><b>{Math.round(day.high)}° <i>{Math.round(day.low)}°</i></b><em><Droplets size={12} />{Math.round(day.rainProbability)}%</em></button>;
+                const periodClass = isToday ? "today" : isPast ? "past" : "future";
+                const periodLabel = isToday ? t("common.today") : isPast ? t("weather.recorded") : t("weather.forecast");
+                return <button type="button" className={`weather-day-card ${selectedDate === day.date ? "active" : ""} ${periodClass}`} key={day.date} onClick={() => setSelectedDate(day.date)}><small>{periodLabel}</small><strong>{formatDate(day.date, language, { weekday: "short" })}</strong><span>{formatDate(day.date, language, { day: "numeric", month: "short" })}</span><Icon name={meta.icon} size={24} /><b>{Math.round(day.high)}° <i>{Math.round(day.low)}°</i></b><em><Droplets size={12} />{Math.round(day.rainProbability)}%</em></button>;
               })}
             </div>
           </div>

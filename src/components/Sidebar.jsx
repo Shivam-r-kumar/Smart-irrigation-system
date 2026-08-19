@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Droplet, Leaf, X } from "lucide-react";
 import navigation from "../data/navigation.json";
 import alertData from "../data/alerts.json";
@@ -13,8 +13,10 @@ export default function Sidebar({ open, onClose }) {
       <button className={`sidebar-backdrop ${open ? "show" : ""}`} onClick={onClose} aria-label="Close navigation" />
       <aside className={`sidebar ${open ? "open" : ""}`}>
         <div className="brand">
-          <span className="brand-mark"><Droplet size={25} /><Leaf size={18} /></span>
-          <span>{t("brand.name")}</span>
+          <Link className="brand-home" to="/dashboard" onClick={onClose} aria-label={`${t("brand.name")} ${t("nav.dashboard")}`}>
+            <span className="brand-mark"><Droplet size={25} /><Leaf size={18} /></span>
+            <span className="brand-name">{t("brand.name")}</span>
+          </Link>
           <button className="sidebar-close icon-button" onClick={onClose} aria-label="Close navigation"><X /></button>
         </div>
         <nav className="sidebar-nav" aria-label="Primary navigation">

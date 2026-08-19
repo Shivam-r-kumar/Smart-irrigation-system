@@ -113,7 +113,16 @@ test("opens a complete farm weather intelligence page", async () => {
   assert.match(weatherSource, /past_days: "15"/);
   assert.match(weatherSource, /forecast_days: "16"/);
   assert.match(weatherSource, /seasonal-api\.open-meteo\.com/);
+  const weatherPageSource = await readFile(new URL("../src/pages/Weather.jsx", import.meta.url), "utf8");
+  assert.match(weatherPageSource, /\[\.\.\.pastDays, today, \.\.\.futureDays\]/);
+  assert.match(weatherPageSource, /periodClass = isToday \? "today"/);
   assert.equal(weather.days.filter((day) => day.date < today).length, 15);
   assert.equal(weather.days.filter((day) => day.date > today).length, 15);
   assert.equal(weather.months.length, 6);
+});
+
+test("uses the AgriSmart logo as a dashboard home link", async () => {
+  const sidebarSource = await readFile(new URL("../src/components/Sidebar.jsx", import.meta.url), "utf8");
+  assert.match(sidebarSource, /className="brand-home" to="\/dashboard"/);
+  assert.match(sidebarSource, /onClick=\{onClose\}/);
 });
