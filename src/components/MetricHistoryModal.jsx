@@ -122,13 +122,8 @@ export default function MetricHistoryModal({ metric, currentValue, deviceId, onC
           <span className={`history-source ${source}`}><i />{source === "live" ? t("history.savedData") : source === "loading" ? t("history.loading") : t("history.previewData")}</span>
         </div>
 
-        <div className="history-slider-wrap">
-          <input aria-label={t("history.chooseDay")} type="range" min="0" max={days.length - 1} value={dayIndex} onChange={(event) => setDayIndex(Number(event.target.value))} style={{ "--slider-progress": `${dayIndex / (days.length - 1) * 100}%` }} />
-          <div className="history-slider-labels"><span>{t("history.sixDaysAgo")}</span><span>{t("common.today")}</span></div>
-        </div>
-
         <div className="history-chart" style={{ "--history-color": color }}>
-          <ResponsiveContainer width="100%" height={290}>
+          <ResponsiveContainer width="100%" height={230}>
             <AreaChart data={series} margin={{ top: 18, right: 16, left: metric.id === "lightIntensity" ? 0 : -18, bottom: 0 }}>
               <defs><linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1"><stop offset="5%" stopColor={color} stopOpacity={0.38} /><stop offset="95%" stopColor={color} stopOpacity={0.02} /></linearGradient></defs>
               <CartesianGrid stroke="var(--chart-grid)" vertical={false} />

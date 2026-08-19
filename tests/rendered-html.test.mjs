@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import { buildFallbackHistory, limitHistoryToElapsedTime } from "../src/utils/sensorHistory.js";
 import { getSoilRemedies } from "../src/utils/soilRemedies.js";
-import { calculatePolygonAreaAcres } from "../src/utils/farmMapping.js";
+import { calculatePolygonAreaAcres, isPointInsideBoundary, loadFarmDevices, saveFarmDevices } from "../src/utils/farmMapping.js";
 
 test("builds the production AgriSmart shell", async () => {
   const html = await readFile(new URL("../dist/index.html", import.meta.url), "utf8");
@@ -49,11 +49,38 @@ test("recommends remedies for low phosphorus and acidic soil", () => {
 test("defines one farm boundary and coordinate-based Google map devices", async () => {
   const farmMap = JSON.parse(await readFile(new URL("../src/data/farmMap.json", import.meta.url), "utf8"));
   const pageSource = await readFile(new URL("../src/pages/FarmMap.jsx", import.meta.url), "utf8");
+  const mapperSource = await readFile(new URL("../src/components/FarmMapperModal.jsx", import.meta.url), "utf8");
+  const settingsSource = await readFile(new URL("../src/pages/Settings.jsx", import.meta.url), "utf8");
+  const contextSource = await readFile(new URL("../src/context/FarmContext.jsx", import.meta.url), "utf8");
+  const sensorsSource = await readFile(new URL("../src/pages/Sensors.jsx", import.meta.url), "utf8");
   assert.ok(farmMap.boundary.length >= 3);
-  assert.equal(farmMap.devices.length, 5);
+  assert.equal(farmMap.devices.length, 9);
   assert.ok(farmMap.devices.every((device) => Number.isFinite(device.coordinates.lat) && Number.isFinite(device.coordinates.lng)));
+  assert.ok(farmMap.devices.every((device) => isPointInsideBoundary(device.coordinates, farmMap.boundary)));
   assert.ok(calculatePolygonAreaAcres(farmMap.boundary) > 1);
   assert.match(pageSource, /VITE_GOOGLE_MAPS_API_KEY/);
   assert.match(pageSource, /MapTypeId\.SATELLITE/);
+  assert.doesNotMatch(pageSource, /FarmMapperModal/);
+  assert.match(settingsSource, /FarmMapperModal/);
+  assert.match(settingsSource, /updateFarmMapping\(nextBoundary, nextDevices\)/);
+  assert.match(contextSource, /saveFarmBoundary\(window\.localStorage, nextBoundary\)/);
+  assert.match(contextSource, /saveFarmDevices\(window\.localStorage, nextDevices\)/);
+  assert.match(sensorsSource, /farmDevices/);
+  assert.doesNotMatch(sensorsSource, /sensors\.json/);
+  assert.doesNotMatch(pageSource, /Open in Google Maps|googleMapsUrl/);
+  assert.match(mapperSource, /Sensor Node|Motor Control Unit|Gateway/);
+  assert.match(mapperSource, /isPointInsideBoundary/);
+  assert.match(mapperSource, /deleteDevice/);
   assert.doesNotMatch(pageSource, /farmZones|mappedZones|zone\.path/);
+});
+
+test("persists custom map devices safely", () => {
+  const values = new Map();
+  const storage = {
+    getItem: (key) => values.get(key) || null,
+    setItem: (key, value) => values.set(key, value),
+  };
+  const devices = [{ id: "SENSOR-001", coordinates: { lat: 30.9, lng: 75.85 } }];
+  assert.equal(saveFarmDevices(storage, devices), true);
+  assert.deepEqual(loadFarmDevices(storage, []), devices);
 });

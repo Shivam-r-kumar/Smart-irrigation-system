@@ -1,9 +1,11 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { subscribeToSensorData } from "../firebase/sensorService";
 import { setAutoMode, setPumpState } from "../firebase/irrigationService";
 import { firebaseEnabled } from "../firebase/config";
+import farmMapData from "../data/farmMap.json";
+import { loadFarmBoundary, loadFarmDevices, saveFarmBoundary, saveFarmDevices } from "../utils/farmMapping";
 
 const demoSensorData = {
   deviceId: "FIELD-001", soilMoisture: 42, temperature: 31, humidity: 64,
@@ -18,6 +20,8 @@ export function FarmProvider({ children }) {
   const [sensorData, setSensorData] = useState(demoSensorData);
   const [connection, setConnection] = useState(firebaseEnabled ? "connecting" : "demo");
   const [controlLoading, setControlLoading] = useState(false);
+  const [farmBoundary, setFarmBoundary] = useState(() => typeof window === "undefined" ? farmMapData.boundary : loadFarmBoundary(window.localStorage, farmMapData.boundary));
+  const [farmDevices, setFarmDevices] = useState(() => typeof window === "undefined" ? farmMapData.devices : loadFarmDevices(window.localStorage, farmMapData.devices));
 
   useEffect(() => subscribeToSensorData(
     demoSensorData.deviceId,
@@ -27,6 +31,22 @@ export function FarmProvider({ children }) {
     },
     () => setConnection("error"),
   ), []);
+
+  useEffect(() => {
+    const syncMappingAcrossTabs = (event) => {
+      if (event.key === "agrismart-farm-boundary-v1") setFarmBoundary(loadFarmBoundary(window.localStorage, farmMapData.boundary));
+      if (event.key === "agrismart-farm-devices-v1") setFarmDevices(loadFarmDevices(window.localStorage, farmMapData.devices));
+    };
+    window.addEventListener("storage", syncMappingAcrossTabs);
+    return () => window.removeEventListener("storage", syncMappingAcrossTabs);
+  }, []);
+
+  const updateFarmMapping = useCallback((nextBoundary, nextDevices) => {
+    setFarmBoundary(nextBoundary);
+    setFarmDevices(nextDevices);
+    saveFarmBoundary(window.localStorage, nextBoundary);
+    saveFarmDevices(window.localStorage, nextDevices);
+  }, []);
 
   const controlPump = async (nextState) => {
     setControlLoading(true);
@@ -49,7 +69,7 @@ export function FarmProvider({ children }) {
     }
   };
 
-  const value = useMemo(() => ({ sensorData, connection, controlLoading, controlPump, toggleAutoMode }), [sensorData, connection, controlLoading]);
+  const value = useMemo(() => ({ sensorData, connection, controlLoading, controlPump, toggleAutoMode, farmBoundary, farmDevices, updateFarmMapping }), [sensorData, connection, controlLoading, farmBoundary, farmDevices, updateFarmMapping]);
   return <FarmContext.Provider value={value}>{children}</FarmContext.Provider>;
 }
 

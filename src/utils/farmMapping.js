@@ -34,3 +34,35 @@ export function saveFarmBoundary(storage, boundary) {
     return false;
   }
 }
+
+export function loadFarmDevices(storage, fallbackDevices) {
+  try {
+    const stored = JSON.parse(storage.getItem("agrismart-farm-devices-v1") || "null");
+    if (!Array.isArray(stored)) return fallbackDevices;
+    return stored.filter((device) => device?.id && Number.isFinite(device?.coordinates?.lat) && Number.isFinite(device?.coordinates?.lng));
+  } catch {
+    return fallbackDevices;
+  }
+}
+
+export function saveFarmDevices(storage, devices) {
+  try {
+    storage.setItem("agrismart-farm-devices-v1", JSON.stringify(devices));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+export function isPointInsideBoundary(point, boundary) {
+  if (!point || !Array.isArray(boundary) || boundary.length < 3) return false;
+  let inside = false;
+  for (let index = 0, previous = boundary.length - 1; index < boundary.length; previous = index++) {
+    const currentPoint = boundary[index];
+    const previousPoint = boundary[previous];
+    const intersects = ((currentPoint.lat > point.lat) !== (previousPoint.lat > point.lat))
+      && (point.lng < (previousPoint.lng - currentPoint.lng) * (point.lat - currentPoint.lat) / (previousPoint.lat - currentPoint.lat) + currentPoint.lng);
+    if (intersects) inside = !inside;
+  }
+  return inside;
+}

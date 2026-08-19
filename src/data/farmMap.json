@@ -34,6 +34,46 @@
       "noteKey": "farmMap.deviceNotes.eastSoil"
     },
     {
+      "id": "FIELD-003", "name": "South Soil Node", "typeKey": "farmMap.deviceTypes.soilNode", "marker": "S3", "color": "#2fbf71", "status": "online", "coordinates": { "lat": 30.89942, "lng": 75.85608 }, "battery": 86, "signal": 90, "lastSeen": "18 sec ago",
+      "metrics": [
+        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 45, "suffix": "%" },
+        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 67, "suffix": "%" },
+        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 30.2, "suffix": "°C" },
+        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 27.8, "suffix": "°C" }
+      ],
+      "noteKey": "farmMap.deviceNotes.soilNode"
+    },
+    {
+      "id": "FIELD-004", "name": "Central Soil Node", "typeKey": "farmMap.deviceTypes.soilNode", "marker": "S4", "color": "#29a984", "status": "online", "coordinates": { "lat": 30.90068, "lng": 75.85708 }, "battery": 73, "signal": 85, "lastSeen": "31 sec ago",
+      "metrics": [
+        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 40, "suffix": "%" },
+        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 62, "suffix": "%" },
+        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 31.8, "suffix": "°C" },
+        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 29.1, "suffix": "°C" }
+      ],
+      "noteKey": "farmMap.deviceNotes.soilNode"
+    },
+    {
+      "id": "FIELD-005", "name": "South-East Soil Node", "typeKey": "farmMap.deviceTypes.soilNode", "marker": "S5", "color": "#487fe2", "status": "warning", "coordinates": { "lat": 30.89945, "lng": 75.85804 }, "battery": 29, "signal": 64, "lastSeen": "3 min ago",
+      "metrics": [
+        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 32, "suffix": "%" },
+        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 55, "suffix": "%" },
+        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 33.1, "suffix": "°C" },
+        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 30.4, "suffix": "°C" }
+      ],
+      "noteKey": "farmMap.deviceNotes.lowMoistureNode"
+    },
+    {
+      "id": "FIELD-006", "name": "North-Central Soil Node", "typeKey": "farmMap.deviceTypes.soilNode", "marker": "S6", "color": "#51b85a", "status": "online", "coordinates": { "lat": 30.90202, "lng": 75.85691 }, "battery": 81, "signal": 92, "lastSeen": "15 sec ago",
+      "metrics": [
+        { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "icon": "Droplets", "tone": "blue", "value": 48, "suffix": "%" },
+        { "id": "humidity", "labelKey": "metrics.humidity", "icon": "CloudSun", "tone": "cyan", "value": 69, "suffix": "%" },
+        { "id": "temperature", "labelKey": "farmMap.airTemperature", "icon": "ThermometerSun", "tone": "red", "value": 29.9, "suffix": "°C" },
+        { "id": "soilTemperature", "labelKey": "farmMap.soilTemperature", "icon": "Thermometer", "tone": "amber", "value": 27.3, "suffix": "°C" }
+      ],
+      "noteKey": "farmMap.deviceNotes.soilNode"
+    },
+    {
       "id": "PUMP-A01", "name": "Main Irrigation Motor", "typeKey": "farmMap.deviceTypes.motor", "marker": "M", "color": "#f08b34", "status": "online", "coordinates": { "lat": 30.90012, "lng": 75.85602 }, "battery": 100, "signal": 91, "lastSeen": "6 sec ago",
       "metrics": [
         { "id": "pumpState", "labelKey": "metrics.pumpState", "icon": "Power", "tone": "green", "value": true, "type": "state" },
