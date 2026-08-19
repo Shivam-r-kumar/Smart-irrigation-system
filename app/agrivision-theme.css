@@ -851,6 +851,23 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
 }
 
 /* Firebase-synced multi-motor irrigation controls */
+.confirmation-backdrop {
+  z-index: 170;
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: auto;
+  overscroll-behavior: contain;
+  place-items: center;
+  animation: agri-backdrop-in .2s ease both;
+}
+.confirmation-modal {
+  margin: auto;
+  max-height: calc(100dvh - 32px);
+  overflow: auto;
+  animation: agri-modal-in .24s cubic-bezier(.18, .8, .25, 1) both;
+}
+
 .pump-card.fleet { overflow: hidden; }
 .irrigation-rail { grid-template-columns: minmax(0, 1fr); }
 .motor-fleet-summary {
@@ -927,6 +944,9 @@ body { font-family: Inter, "Segoe UI", Arial, sans-serif; letter-spacing: -.005e
 }
 
 @media (max-width: 420px) {
+  .confirmation-backdrop { padding: 10px; }
+  .confirmation-modal { width: min(360px, 100%); padding: 21px 18px 18px; }
+  .confirmation-modal .modal-actions { display: grid; grid-template-columns: 1fr 1fr; }
   .motor-fleet-summary { grid-template-columns: 34px minmax(0, 1fr); }
   .motor-fleet-summary > .status-badge { grid-column: 2; }
   .motor-control-row { padding: 8px; grid-template-columns: 36px minmax(0, 1fr); }

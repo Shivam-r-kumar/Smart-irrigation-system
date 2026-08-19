@@ -164,3 +164,13 @@ test("controls every mapped motor individually and as one fleet", async () => {
   assert.match(irrigationService, /ref\(database, IRRIGATION_PATH\)/);
   assert.match(mappingService, /set\(ref\(database, SHARED_MAPPING_PATH\)/);
 });
+
+test("renders confirmations at the viewport root so cards cannot clip them", async () => {
+  const modalSource = await readFile(new URL("../src/components/ConfirmationModal.jsx", import.meta.url), "utf8");
+  const themeSource = await readFile(new URL("../app/agrivision-theme.css", import.meta.url), "utf8");
+  assert.match(modalSource, /createPortal/);
+  assert.match(modalSource, /document\.body/);
+  assert.match(modalSource, /confirmation-backdrop/);
+  assert.match(themeSource, /\.confirmation-backdrop\s*\{[^}]*z-index:\s*170/s);
+  assert.match(themeSource, /\.confirmation-modal\s*\{[^}]*margin:\s*auto/s);
+});
