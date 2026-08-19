@@ -1,0 +1,34 @@
+{
+  "headingKey": "dashboard.title",
+  "descriptionKey": "dashboard.description",
+  "heroKickerKey": "dashboard.kicker",
+  "metrics": [
+    { "id": "soilMoisture", "labelKey": "metrics.soilMoisture", "suffix": "%", "statusKey": "status.moderate", "icon": "Droplets", "tone": "blue" },
+    { "id": "pumpState", "labelKey": "metrics.pumpState", "statusKey": "status.running", "icon": "CircleGauge", "tone": "green" },
+    { "id": "lightIntensity", "labelKey": "metrics.lightIntensity", "suffix": " lux", "statusKey": "status.bright", "icon": "Sun", "tone": "amber" },
+    { "id": "temperature", "labelKey": "metrics.temperature", "suffix": "°C", "statusKey": "status.warm", "icon": "Thermometer", "tone": "red" },
+    { "id": "humidity", "labelKey": "metrics.humidity", "suffix": "%", "statusKey": "status.comfortable", "icon": "CloudSun", "tone": "cyan" },
+    { "id": "waterTankLevel", "labelKey": "metrics.tankLevel", "suffix": "%", "statusKey": "status.good", "icon": "Container", "tone": "blue" },
+    { "id": "soilPH", "labelKey": "metrics.soilPH", "statusKey": "status.slightlyAcidic", "icon": "TestTube", "tone": "green" },
+    { "id": "ec", "labelKey": "metrics.ec", "suffix": " dS/m", "statusKey": "status.normal", "icon": "Zap", "tone": "purple" }
+  ],
+  "moistureTrend": [
+    { "day": "12 May", "value": 51 }, { "day": "13 May", "value": 58 }, { "day": "14 May", "value": 50 },
+    { "day": "15 May", "value": 41 }, { "day": "16 May", "value": 54 }, { "day": "17 May", "value": 42 }, { "day": "18 May", "value": 36 }
+  ],
+  "waterUsage": [
+    { "day": "Mon", "litres": 110 }, { "day": "Tue", "litres": 135 }, { "day": "Wed", "litres": 158 },
+    { "day": "Thu", "litres": 118 }, { "day": "Fri", "litres": 128 }, { "day": "Sat", "litres": 88 }, { "day": "Sun", "litres": 62 }
+  ],
+  "npk": [
+    { "nameKey": "metrics.nitrogen", "value": 120, "target": 150, "color": "#249755" },
+    { "nameKey": "metrics.phosphorus", "value": 60, "target": 100, "color": "#f0a234" },
+    { "nameKey": "metrics.potassium", "value": 40, "target": 80, "color": "#3478d4" }
+  ],
+  "activities": [
+    { "titleKey": "activity.lowMoisture", "categoryKey": "category.alert", "time": "08:45 AM", "severity": "critical", "icon": "Droplet" },
+    { "titleKey": "activity.pumpOn", "categoryKey": "category.system", "time": "08:30 AM", "severity": "success", "icon": "Power" },
+    { "titleKey": "activity.rain", "categoryKey": "category.weather", "time": "07:15 AM", "severity": "info", "icon": "CloudRain" },
+    { "titleKey": "activity.soilUploaded", "categoryKey": "category.data", "time": "Yesterday", "severity": "neutral", "icon": "FlaskConical" }
+  ]
+}

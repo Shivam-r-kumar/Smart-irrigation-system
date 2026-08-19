@@ -1,0 +1,10 @@
+[
+  { "path": "/dashboard", "labelKey": "nav.dashboard", "icon": "LayoutDashboard" },
+  { "path": "/soil-analysis", "labelKey": "nav.soilAnalysis", "icon": "FlaskConical" },
+  { "path": "/crop-recommendation", "labelKey": "nav.cropRecommendation", "icon": "Sprout" },
+  { "path": "/irrigation", "labelKey": "nav.irrigation", "icon": "Droplets" },
+  { "path": "/sensors", "labelKey": "nav.sensors", "icon": "RadioTower" },
+  { "path": "/alerts", "labelKey": "nav.alerts", "icon": "Bell" },
+  { "path": "/reports", "labelKey": "nav.reports", "icon": "ChartNoAxesCombined" },
+  { "path": "/settings", "labelKey": "nav.settings", "icon": "Settings" }
+]

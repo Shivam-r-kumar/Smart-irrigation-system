@@ -1,0 +1,23 @@
+{
+  "headingKey": "reports.title",
+  "descriptionKey": "reports.description",
+  "summary": [
+    { "labelKey": "reports.usageToday", "value": "126 L", "change": "−8%", "tone": "blue", "icon": "Droplets" },
+    { "labelKey": "reports.usageWeek", "value": "799 L", "change": "−12%", "tone": "cyan", "icon": "CalendarDays" },
+    { "labelKey": "reports.waterSaved", "value": "1,540 L", "change": "+18%", "tone": "green", "icon": "Leaf" },
+    { "labelKey": "reports.events", "value": "24", "change": "17 auto", "tone": "purple", "icon": "TimerReset" }
+  ],
+  "daily": [
+    { "day": "Mon", "usage": 110, "saved": 54 }, { "day": "Tue", "usage": 135, "saved": 60 }, { "day": "Wed", "usage": 158, "saved": 72 },
+    { "day": "Thu", "usage": 118, "saved": 66 }, { "day": "Fri", "usage": 128, "saved": 78 }, { "day": "Sat", "usage": 88, "saved": 82 }, { "day": "Sun", "usage": 62, "saved": 88 }
+  ],
+  "conditions": [
+    { "month": "Mar", "moisture": 38, "temperature": 30 }, { "month": "Apr", "moisture": 42, "temperature": 32 },
+    { "month": "May", "moisture": 47, "temperature": 34 }, { "month": "Jun", "moisture": 52, "temperature": 31 },
+    { "month": "Jul", "moisture": 48, "temperature": 29 }, { "month": "Aug", "moisture": 44, "temperature": 31 }
+  ],
+  "eventSplit": [
+    { "nameKey": "irrigation.automatic", "value": 17, "color": "#22934f" },
+    { "nameKey": "irrigation.manual", "value": 7, "color": "#3c82e0" }
+  ]
+}
